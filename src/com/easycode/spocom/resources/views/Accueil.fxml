@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="622.0" prefWidth="817.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="com.easycode.spocom.java.controllers.AccueilController">
+    <stylesheets>
+        <URL value="@/com/easycode/spocom/resources/css/accueil.css" />
+    </stylesheets>
+</AnchorPane>
