@@ -7,11 +7,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Launch extends Application {
-    
+    public static Stage stage = null;
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage stage) {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("/com/easycode/spocom/resources/views/Accueil.fxml"));
@@ -20,9 +21,10 @@ public class Launch extends Application {
         }
         Scene scene = new Scene(root);
         
-        primaryStage.setTitle("SpoCom App");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        Launch.stage = stage;
+        stage.show();
     }
 
     public static void main(String[] args) {

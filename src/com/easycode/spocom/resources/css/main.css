@@ -1,0 +1,46 @@
+/* This style using in all window */
+
+.close-btn{
+    -fx-background-color: #FC5653;
+    -fx-background-radius: 100%;
+    -fx-pref-width: 12px;
+    -fx-pref-height: 12px
+    
+}
+.close-btn:hover{
+    -fx-background-color: red;
+    -fx-background-radius: 100%;
+    -fx-cursor: hand
+}
+
+.min-btn{
+    -fx-background-color: #29CC41;
+    -fx-background-radius: 100%;
+    -fx-pref-width: 12px;
+    -fx-pref-height: 12px
+}
+.min-btn:hover{
+    -fx-background-color: green;
+    -fx-background-radius: 100%;
+    -fx-cursor: hand
+}
+
+.title {
+    -fx-font-size: 40px;
+    -fx-text-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, #2196f3 0%, #694A97 100%);
+}
+
+.field {
+    -fx-font-size: 16px
+}
+
+.btn  {
+    -fx-font-size: 20px;
+    -fx-background-color: #4DABF5;
+    -fx-background-radius: 6;
+}
+
+.btn:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #2196f3
+}

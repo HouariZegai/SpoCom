@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+
+
+<VBox prefHeight="677.0" prefWidth="747.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.easycode.spocom.java.controllers.NouveauCompetitionController">
+   <children>
+      <Label prefHeight="64.0" prefWidth="234.0" styleClass="title" text="Nouveau Competition" />
+      <Pane prefHeight="97.0" prefWidth="751.0">
+         <children>
+            <Line fx:id="line1" endX="160.0" fill="#2378b9" layoutX="70.0" layoutY="50.0" smooth="false" stroke="WHITE" strokeWidth="5.0" />
+            <Circle fx:id="cir1" fill="WHITE" layoutX="241.0" layoutY="49.0" radius="11.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" />
+            <Line fx:id="line2" endX="160.0" fill="#2378b9" layoutX="254.0" layoutY="49.0" smooth="false" stroke="WHITE" strokeWidth="5.0" />
+            <Circle fx:id="cir2" fill="WHITE" layoutX="426.0" layoutY="48.0" radius="11.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" />
+            <Line fx:id="line3" endX="160.0" fill="#2378b9" layoutX="440.0" layoutY="48.0" smooth="false" stroke="WHITE" strokeWidth="5.0" />
+            <Circle fx:id="cir3" fill="WHITE" layoutX="610.0" layoutY="47.0" radius="11.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" />
+         </children>
+      </Pane>
+      <StackPane prefHeight="515.0" prefWidth="747.0">
+         <children>
+            <VBox fx:id="infoComPane" alignment="TOP_CENTER" fillWidth="false" prefHeight="429.0" prefWidth="747.0" spacing="25.0" visible="false">
+               <children>
+                  <Label styleClass="title" text="Information de competition">
+                     <VBox.margin>
+                        <Insets bottom="30.0" />
+                     </VBox.margin>
+                  </Label>
+                  <JFXTextField focusColor="#2196f3" labelFloat="true" prefHeight="37.0" prefWidth="280.0" promptText="Edition" styleClass="field" />
+                  <JFXTextField focusColor="#2196f3" labelFloat="true" prefHeight="37.0" prefWidth="280.0" promptText="Type de competition" styleClass="field" />
+                  <JFXDatePicker defaultColor="#2196f3" prefHeight="37.0" prefWidth="280.0" promptText="Date" styleClass="field" />
+                  <JFXTextField focusColor="#2196f3" labelFloat="true" prefHeight="37.0" prefWidth="280.0" promptText="Lieu" styleClass="field" />
+                  <HBox alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="270.0">
+                     <children>
+                        <JFXButton onAction="#suivantInfosCom" prefHeight="43.0" prefWidth="128.0" styleClass="btn" text="Suivant" />
+                     </children>
+                  </HBox>
+               </children>
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
+            </VBox>
+            <VBox fx:id="infoCategoryPane" alignment="TOP_CENTER" fillWidth="false" prefHeight="429.0" prefWidth="747.0" spacing="25.0">
+               <children>
+                  <Label styleClass="title" text="Information de catégorie">
+                     <VBox.margin>
+                        <Insets bottom="30.0" />
+                     </VBox.margin>
+                  </Label>
+                  <VBox fillWidth="false" prefHeight="200.0" prefWidth="282.0" spacing="20.0">
+                     <children>
+                        <JFXTextField focusColor="#2196f3" promptText="Date" styleClass="field" />
+                        <JFXTextField focusColor="#2196f3" promptText="Date" styleClass="field" />
+                        <JFXTextField focusColor="#2196f3" promptText="Date" styleClass="field" />
+                        <JFXTextField focusColor="#2196f3" promptText="Date" styleClass="field" />
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="270.0">
+                     <children>
+                        <JFXButton onAction="#suivantInfosCategory" prefHeight="43.0" prefWidth="128.0" styleClass="btn" text="Suivant" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+   </children>
+   <stylesheets>
+      <URL value="@../css/main.css" />
+      <URL value="@../css/nouveaucompetition.css" />
+   </stylesheets>
+</VBox>
