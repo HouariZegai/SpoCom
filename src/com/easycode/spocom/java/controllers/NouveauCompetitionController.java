@@ -20,9 +20,9 @@ public class NouveauCompetitionController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        line1.setStyle("-fx-stroke: #2196f3");
-        cir1.setStyle("-fx-fill: #2196f3");
+        
     }
+    
     
     @FXML // action of button suivant of competition information
     private void suivantInfosCom() {
@@ -39,11 +39,11 @@ public class NouveauCompetitionController implements Initializable {
     
     @FXML // action of button suivant of Category information
     private void suivantInfosCategory() {
-        infoCategoryPane.setVisible(false);
-        infoAthletePane.setVisible(true);
+        //infoCategoryPane.setVisible(false);
+        //infoAthletePane.setVisible(true);
         
-        line1.setStyle("-fx-stroke: #FFF");
-        cir1.setStyle("-fx-fill: #FFF");
+        line1.setStyle("-fx-stroke: #2196f3");
+        cir1.setStyle("-fx-fill: #2196f3");
         line2.setStyle("-fx-stroke: #2196f3");
         cir2.setStyle("-fx-fill: #2196f3");
         line3.setStyle("-fx-stroke: #FFF");

@@ -10,98 +10,79 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox fx:id="root" prefHeight="649.0" prefWidth="945.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.easycode.spocom.java.controllers.AccueilController">
+<StackPane fx:id="root" prefHeight="613.0" prefWidth="945.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane prefHeight="38.0" prefWidth="820.0" style="-fx-background-color: #EEE;">
+      <AnchorPane id="AnchorPane" prefHeight="557.0" prefWidth="945.0" styleClass="mainFxmlClass">
          <children>
-            <Label layoutX="14.0" layoutY="11.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#close" prefHeight="12.0" prefWidth="12.0" styleClass="close-btn">
-            </Label>
-            <Label layoutX="38.0" layoutY="11.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#minimize" prefHeight="12.0" prefWidth="12.0" styleClass="min-btn">
-            </Label>
-            <Label layoutX="436.0" layoutY="11.0" text="SpoCom App">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <StackPane fx:id="parentStack" prefHeight="613.0" prefWidth="945.0" style="-fx-background-color: #FFF;">
-         <children>
-            <AnchorPane id="AnchorPane" prefHeight="557.0" prefWidth="945.0" styleClass="mainFxmlClass">
+            <Label layoutX="410.0" layoutY="29.0" styleClass="title" text="Accueil" />
+            <HBox layoutX="50.0" layoutY="239.0" spacing="15.0">
                <children>
-                  <Label layoutX="410.0" layoutY="29.0" styleClass="title" text="Accueil" />
-                  <HBox layoutX="50.0" layoutY="239.0" spacing="15.0">
+                  <AnchorPane onMouseClicked="#boxNewComp" prefHeight="200.0" prefWidth="200.0" styleClass="box-chooser">
                      <children>
-                        <AnchorPane onMouseClicked="#boxNewComp" prefHeight="200.0" prefWidth="200.0" styleClass="box-chooser">
+                        <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/accueil/test.png" />
+                           </image>
+                        </ImageView>
+                        <Pane opacity="0.82" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #148BB1;" styleClass="pane-chooser">
                            <children>
-                              <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/accueil/test.png" />
-                                 </image>
-                              </ImageView>
-                              <Pane opacity="0.82" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #148BB1;" styleClass="pane-chooser">
-                                 <children>
-                                    <Label layoutX="27.0" layoutY="55.0" prefHeight="90.0" prefWidth="147.0" styleClass="title-chooser" text="Nouveau Competition" wrapText="true" />
-                                 </children>
-                              </Pane>
+                              <Label layoutX="27.0" layoutY="55.0" prefHeight="90.0" prefWidth="147.0" styleClass="title-chooser" text="Nouveau Competition" wrapText="true" />
                            </children>
-                        </AnchorPane>
-                        <AnchorPane onMouseClicked="#boxEditComp" prefHeight="200.0" prefWidth="200.0" styleClass="box-chooser">
-                           <children>
-                              <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/accueil/test.png" />
-                                 </image>
-                              </ImageView>
-                              <Pane opacity="0.82" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #694A97;" styleClass="pane-chooser">
-                                 <children>
-                                    <Label layoutX="27.0" layoutY="55.0" prefHeight="90.0" prefWidth="147.0" styleClass="title-chooser" text="Modifier Competition" wrapText="true" />
-                                 </children>
-                              </Pane>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane onMouseClicked="#boxGoToComp" prefHeight="200.0" prefWidth="200.0" styleClass="box-chooser">
-                           <children>
-                              <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/accueil/test.png" />
-                                 </image>
-                              </ImageView>
-                              <Pane opacity="0.82" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #148BB1;" styleClass="pane-chooser">
-                                 <children>
-                                    <Label layoutX="27.0" layoutY="55.0" prefHeight="90.0" prefWidth="147.0" styleClass="title-chooser" text="Accéder Competition" wrapText="true" />
-                                 </children>
-                              </Pane>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane onMouseClicked="#boxViewResult" prefHeight="200.0" prefWidth="200.0" styleClass="box-chooser">
-                           <children>
-                              <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                              <Pane opacity="0.82" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #2196f3;" styleClass="pane-chooser">
-                                 <children>
-                                    <Label layoutX="31.0" layoutY="55.0" prefHeight="90.0" prefWidth="138.0" styleClass="title-chooser" text="Afficher Resultat" wrapText="true" />
-                                 </children>
-                              </Pane>
-                           </children>
-                        </AnchorPane>
+                        </Pane>
                      </children>
-                  </HBox>
-                  <HBox alignment="CENTER_RIGHT" layoutX="784.0" layoutY="14.0" prefHeight="49.0" prefWidth="147.0" spacing="15.0">
+                  </AnchorPane>
+                  <AnchorPane onMouseClicked="#boxEditComp" prefHeight="200.0" prefWidth="200.0" styleClass="box-chooser">
                      <children>
-                        <Icons525View glyphName="WP_COG_O" onMouseClicked="#btnSettings" size="33" styleClass="about-icon" />
-                        <MaterialDesignIconView fx:id="iconAbout" glyphName="INFORMATION_OUTLINE" onMouseClicked="#btnAbout" size="38" styleClass="about-icon" />
+                        <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/accueil/test.png" />
+                           </image>
+                        </ImageView>
+                        <Pane opacity="0.82" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #694A97;" styleClass="pane-chooser">
+                           <children>
+                              <Label layoutX="27.0" layoutY="55.0" prefHeight="90.0" prefWidth="147.0" styleClass="title-chooser" text="Modifier Competition" wrapText="true" />
+                           </children>
+                        </Pane>
                      </children>
-                  </HBox>
+                  </AnchorPane>
+                  <AnchorPane onMouseClicked="#boxGoToComp" prefHeight="200.0" prefWidth="200.0" styleClass="box-chooser">
+                     <children>
+                        <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/accueil/test.png" />
+                           </image>
+                        </ImageView>
+                        <Pane opacity="0.82" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #148BB1;" styleClass="pane-chooser">
+                           <children>
+                              <Label layoutX="27.0" layoutY="55.0" prefHeight="90.0" prefWidth="147.0" styleClass="title-chooser" text="Accéder Competition" wrapText="true" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane onMouseClicked="#boxViewResult" prefHeight="200.0" prefWidth="200.0" styleClass="box-chooser">
+                     <children>
+                        <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                        <Pane opacity="0.82" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #2196f3;" styleClass="pane-chooser">
+                           <children>
+                              <Label layoutX="31.0" layoutY="55.0" prefHeight="90.0" prefWidth="138.0" styleClass="title-chooser" text="Afficher Resultat" wrapText="true" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
                </children>
-            </AnchorPane>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" layoutX="784.0" layoutY="14.0" prefHeight="49.0" prefWidth="147.0" spacing="15.0">
+               <children>
+                  <Icons525View glyphName="WP_COG_O" onMouseClicked="#btnSettings" size="33" styleClass="about-icon" />
+                  <MaterialDesignIconView fx:id="iconAbout" glyphName="INFORMATION_OUTLINE" onMouseClicked="#btnAbout" size="38" styleClass="about-icon" />
+               </children>
+            </HBox>
          </children>
-      </StackPane>
+      </AnchorPane>
    </children>
    <stylesheets>
       <URL value="@../css/main.css" />
       <URL value="@../css/accueil.css" />
    </stylesheets>
-</VBox>
+</StackPane>

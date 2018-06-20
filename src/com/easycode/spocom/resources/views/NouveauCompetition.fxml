@@ -13,7 +13,6 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 
-
 <VBox prefHeight="677.0" prefWidth="747.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.easycode.spocom.java.controllers.NouveauCompetitionController">
    <children>
       <Label prefHeight="64.0" prefWidth="234.0" styleClass="title" text="Nouveau Competition" />
@@ -29,7 +28,7 @@
       </Pane>
       <StackPane prefHeight="515.0" prefWidth="747.0">
          <children>
-            <VBox fx:id="infoComPane" alignment="TOP_CENTER" fillWidth="false" prefHeight="429.0" prefWidth="747.0" spacing="25.0" visible="false">
+            <VBox fx:id="infoComPane" alignment="TOP_CENTER" fillWidth="false" prefHeight="429.0" prefWidth="747.0" spacing="25.0">
                <children>
                   <Label styleClass="title" text="Information de competition">
                      <VBox.margin>
@@ -50,7 +49,7 @@
                   <Insets />
                </StackPane.margin>
             </VBox>
-            <VBox fx:id="infoCategoryPane" alignment="TOP_CENTER" fillWidth="false" prefHeight="429.0" prefWidth="747.0" spacing="25.0">
+            <VBox fx:id="infoCategoryPane" alignment="TOP_CENTER" fillWidth="false" prefHeight="429.0" prefWidth="747.0" spacing="25.0" visible="false">
                <children>
                   <Label styleClass="title" text="Information de catégorie">
                      <VBox.margin>
