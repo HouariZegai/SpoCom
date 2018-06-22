@@ -1,46 +1,69 @@
 /* This style using in all window */
 
-.close-btn{
-    -fx-background-color: #FC5653;
-    -fx-background-radius: 100%;
-    -fx-pref-width: 12px;
-    -fx-pref-height: 12px
-    
-}
-.close-btn:hover{
-    -fx-background-color: red;
-    -fx-background-radius: 100%;
-    -fx-cursor: hand
-}
-
-.min-btn{
-    -fx-background-color: #29CC41;
-    -fx-background-radius: 100%;
-    -fx-pref-width: 12px;
-    -fx-pref-height: 12px
-}
-.min-btn:hover{
-    -fx-background-color: green;
-    -fx-background-radius: 100%;
-    -fx-cursor: hand
-}
-
 .title {
     -fx-font-size: 40px;
     -fx-text-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, #2196f3 0%, #694A97 100%);
+}
+
+.title2 {
+    -fx-font-size: 26px;
+    -fx-text-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, #694A97 0%, #2196f3 100%);
 }
 
 .field {
     -fx-font-size: 16px
 }
 
-.btn  {
-    -fx-font-size: 20px;
+/* Start all button style */
+
+JFXButton {
+    -fx-font-size: 18px;
     -fx-background-color: #4DABF5;
     -fx-background-radius: 6;
 }
 
-.btn:hover {
-    -fx-cursor: hand;
+JFXButton:hover {
     -fx-background-color: #2196f3
 }
+
+/* End all button style */
+
+.btn  {
+    -fx-font-size: 20px;
+}
+
+.btn-dialog {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-background-color: #2196f3;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+    -fx-pref-width: 120px;
+    -fx-pref-height: 40px
+}
+
+/* Start Form Style */
+
+.icon-close:hover {
+    -fx-cursor: hand;
+    -fx-fill: #FF3D22
+}
+
+/* End Form Style */
+
+JFXRadioButton:hover, JFXComboBox:hover, JFXDatePicker:hover, JFXButton:hover {
+    -fx-cursor: hand
+}
+
+/* Start SnackBar */
+
+.jfx-snackbar-content {
+    -fx-background-color: #2196f3;
+    -fx-pref-width: 400
+}
+.jfx-snackbar-toast {
+    -fx-text-fill: #000;
+    -fx-font-size: 18px;
+    -fx-font-family: Tahoma
+}
+/* End SnackBar */

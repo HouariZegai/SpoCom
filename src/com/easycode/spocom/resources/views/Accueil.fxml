@@ -11,16 +11,16 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane fx:id="root" prefHeight="613.0" prefWidth="945.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:id="root" prefHeight="650.0" prefWidth="945.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.easycode.spocom.java.controllers.AccueilController">
    <children>
-      <AnchorPane id="AnchorPane" prefHeight="557.0" prefWidth="945.0" styleClass="mainFxmlClass">
+      <AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="945.0" styleClass="mainFxmlClass">
          <children>
             <Label layoutX="410.0" layoutY="29.0" styleClass="title" text="Accueil" />
-            <HBox layoutX="50.0" layoutY="239.0" spacing="15.0">
+            <HBox fillHeight="false" layoutX="50.0" layoutY="239.0" spacing="15.0">
                <children>
                   <AnchorPane onMouseClicked="#boxNewComp" prefHeight="200.0" prefWidth="200.0" styleClass="box-chooser">
                      <children>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="190.0" fitWidth="190.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/accueil/test.png" />
                            </image>
@@ -34,7 +34,7 @@
                   </AnchorPane>
                   <AnchorPane onMouseClicked="#boxEditComp" prefHeight="200.0" prefWidth="200.0" styleClass="box-chooser">
                      <children>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="190.0" fitWidth="190.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/accueil/test.png" />
                            </image>
@@ -48,7 +48,7 @@
                   </AnchorPane>
                   <AnchorPane onMouseClicked="#boxGoToComp" prefHeight="200.0" prefWidth="200.0" styleClass="box-chooser">
                      <children>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="190.0" fitWidth="190.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/accueil/test.png" />
                            </image>
@@ -62,7 +62,7 @@
                   </AnchorPane>
                   <AnchorPane onMouseClicked="#boxViewResult" prefHeight="200.0" prefWidth="200.0" styleClass="box-chooser">
                      <children>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="190.0" fitWidth="190.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                         <Pane opacity="0.82" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #2196f3;" styleClass="pane-chooser">
                            <children>
                               <Label layoutX="31.0" layoutY="55.0" prefHeight="90.0" prefWidth="138.0" styleClass="title-chooser" text="Afficher Resultat" wrapText="true" />
