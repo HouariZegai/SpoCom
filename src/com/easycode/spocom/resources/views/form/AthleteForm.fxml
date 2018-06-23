@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="root" fillWidth="false" prefHeight="621.0" prefWidth="439.0" spacing="25.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.easycode.spocom.java.controllers.form.AddAthleteController">
+<VBox fx:id="root" fillWidth="false" prefHeight="621.0" prefWidth="439.0" spacing="25.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.easycode.spocom.java.controllers.form.AthleteFormController">
    <children>
       <Pane prefHeight="73.0" prefWidth="396.0">
          <children>
-            <Label alignment="CENTER" layoutX="85.0" layoutY="13.0" styleClass="title2" text="Ajouter Athlète" />
+            <Label fx:id="titleField" alignment="CENTER" layoutX="85.0" layoutY="13.0" styleClass="title2" text="Ajouter Athlète" />
             <EmojiOneView glyphName="X" layoutX="368.0" layoutY="38.0" onMouseClicked="#btnClose" size="20" styleClass="icon-close" wrappingWidth="14.0" />
          </children>
       </Pane>
@@ -112,7 +112,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="54.0" prefWidth="369.0" spacing="30.0">
          <children>
-            <JFXButton onAction="#btnAdd" prefHeight="45.0" prefWidth="170.0" text="Ajouter" />
+            <JFXButton fx:id="btnValid" prefHeight="45.0" prefWidth="170.0" text="Ajouter" />
             <JFXButton onAction="#btnClear" prefHeight="45.0" prefWidth="170.0" text="Vider" />
          </children>
          <VBox.margin>
@@ -125,6 +125,6 @@
    </padding>
    <stylesheets>
       <URL value="@../../css/main.css" />
-      <URL value="@../../css/form/addAthlete.css" />
+      <URL value="@../../css/form/athleteForm.css" />
    </stylesheets>
 </VBox>

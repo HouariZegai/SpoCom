@@ -10,7 +10,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class AccueilController implements Initializable {
@@ -20,7 +19,7 @@ public class AccueilController implements Initializable {
 
     public static JFXDialog aboutDialog;
 
-    private VBox nouveauCompetitionWindow;
+    private StackPane nouveauCompetitionWindow;
 
     private Stage stage;
 
@@ -29,8 +28,6 @@ public class AccueilController implements Initializable {
 
         try {
             AnchorPane aboutPane = FXMLLoader.load(getClass().getResource("/com/easycode/spocom/resources/views/About.fxml"));
-            nouveauCompetitionWindow = FXMLLoader.load(getClass().
-                    getResource("/com/easycode/spocom/resources/views/NouveauCompetition.fxml"));
             aboutDialog = new JFXDialog(root, aboutPane, JFXDialog.DialogTransition.CENTER);
         } catch (IOException ex) {
             System.out.println("Error msg : " + ex.getMessage());
@@ -39,6 +36,13 @@ public class AccueilController implements Initializable {
 
     @FXML
     private void boxNewComp() {
+        try {
+             nouveauCompetitionWindow = FXMLLoader.load(getClass().
+                    getResource("/com/easycode/spocom/resources/views/NouveauCompetition.fxml"));
+        } catch(IOException ioe) {
+            System.out.println("Error msg(IOException) : " + ioe.getMessage());
+        }
+        
         stage = (Stage) root.getScene().getWindow();
 
         //create a new scene with root and set the stage
@@ -48,7 +52,7 @@ public class AccueilController implements Initializable {
 
     @FXML
     private void boxEditComp() {
-
+        
     }
 
     @FXML
