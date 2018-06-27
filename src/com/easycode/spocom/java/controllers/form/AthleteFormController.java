@@ -1,11 +1,8 @@
 package com.easycode.spocom.java.controllers.form;
 
+import com.easycode.spocom.java.controllers.ModifierCompetitionController;
 import com.easycode.spocom.java.controllers.NouveauCompetitionController;
-import com.easycode.spocom.java.controllers.NouveauCompetitionController.TableAthlete;
-import static com.easycode.spocom.java.controllers.NouveauCompetitionController.athleteFormDialog;
-import static com.easycode.spocom.java.controllers.NouveauCompetitionController.dataTableAthlete;
-import static com.easycode.spocom.java.controllers.NouveauCompetitionController.indexAthleteSelected;
-import static com.easycode.spocom.java.controllers.NouveauCompetitionController.selectedAhtlete;
+import com.easycode.spocom.java.controllers.TableAthlete;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
@@ -48,35 +45,59 @@ public class AthleteFormController implements Initializable {
     @FXML
     private JFXButton btnValid;
 
-    public static boolean formTypeIsAdd; // Edit or Add
+    public static boolean fromTypeIsAdd; // Edit or Add
+    public static boolean isNewCompetitionCall; // true -> new competition, false -> edit competition
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initializeComboAndRadio();
 
-        if (formTypeIsAdd) {
+        if (fromTypeIsAdd) {
             titleField.setText("Ajouter Athlète");
             btnValid.setText("Ajouter");
         } else {
             titleField.setText("Modifier Athlète");
             btnValid.setText("Modifier");
-            nomField.setText(selectedAhtlete.getNom());
-            prenomField.setText(selectedAhtlete.getPrenom());
-            dateNaissPicker.setValue(selectedAhtlete.getDateNaiss().toLocalDate());
-            if(selectedAhtlete.isHomme())
-                rHomme.setSelected(true);
-            else
-                rFemme.setSelected(true);
-            clubField.setText(selectedAhtlete.getClub());
-            comboCodeWilaya.getSelectionModel().select(selectedAhtlete.getCodeWilaya());
-            if(selectedAhtlete.isInd())
-                rInd.setSelected(true);
-            else
-                rEq.setSelected(true);
+            
+            if(isNewCompetitionCall) {
+                nomField.setText(NouveauCompetitionController.selectedAhtlete.getNom());
+                prenomField.setText(NouveauCompetitionController.selectedAhtlete.getPrenom());
+                dateNaissPicker.setValue(NouveauCompetitionController.selectedAhtlete.getDateNaiss().toLocalDate());
+
+                if (NouveauCompetitionController.selectedAhtlete.isHomme()) {
+                    rHomme.setSelected(true);
+                } else {
+                    rFemme.setSelected(true);
+                }
+                clubField.setText(NouveauCompetitionController.selectedAhtlete.getClub());
+                comboCodeWilaya.getSelectionModel().select("" + NouveauCompetitionController.selectedAhtlete.getCodeWilaya());
+                if (NouveauCompetitionController.selectedAhtlete.isInd()) {
+                    rInd.setSelected(true);
+                } else {
+                    rEq.setSelected(true);
+                }
+            } else {
+                nomField.setText(ModifierCompetitionController.selectedAhtlete.getNom());
+                prenomField.setText(ModifierCompetitionController.selectedAhtlete.getPrenom());
+                dateNaissPicker.setValue(ModifierCompetitionController.selectedAhtlete.getDateNaiss().toLocalDate());
+
+                if (ModifierCompetitionController.selectedAhtlete.isHomme()) {
+                    rHomme.setSelected(true);
+                } else {
+                    rFemme.setSelected(true);
+                }
+                clubField.setText(ModifierCompetitionController.selectedAhtlete.getClub());
+                comboCodeWilaya.getSelectionModel().select("" + ModifierCompetitionController.selectedAhtlete.getCodeWilaya());
+                if (ModifierCompetitionController.selectedAhtlete.isInd()) {
+                    rInd.setSelected(true);
+                } else {
+                    rEq.setSelected(true);
+                }
+            }
         }
         
         btnValid.setOnAction(e -> {
-            if (formTypeIsAdd) {
+            if (fromTypeIsAdd) {
                 addAthlete();        
             } else {
                 editAthlete();
@@ -160,7 +181,7 @@ public class AthleteFormController implements Initializable {
             return;
         }
 
-        TableAthlete athlete = new NouveauCompetitionController().new TableAthlete();
+        TableAthlete athlete = new TableAthlete();
         athlete.setNom(nomField.getText().trim().toUpperCase());
 
         String prenom = prenomField.getText().trim().toLowerCase();
@@ -172,7 +193,11 @@ public class AthleteFormController implements Initializable {
         athlete.setClub(clubField.getText().trim().toUpperCase());
         athlete.setCodeWilaya(comboCodeWilaya.getSelectionModel().getSelectedItem());
         athlete.setObservation(rInd.isSelected());
-        dataTableAthlete.add(athlete);
+        
+        if(isNewCompetitionCall)
+            NouveauCompetitionController.dataTableAthlete.add(athlete);
+        else
+            ModifierCompetitionController.dataTableAthlete.add(athlete);
 
         Notifications notification = Notifications.create()
                 .title("Vous Avez Ajouter un Athlète !")
@@ -206,7 +231,7 @@ public class AthleteFormController implements Initializable {
             toastErrorMsg.show("Svp, selectionner le code wilaya !", 1500);
             return;
         }
-        TableAthlete athlete = new NouveauCompetitionController().new TableAthlete();
+        TableAthlete athlete = new TableAthlete();
         athlete.setNom(nomField.getText().trim().toUpperCase());
 
         String prenom = prenomField.getText().trim().toLowerCase();
@@ -219,7 +244,10 @@ public class AthleteFormController implements Initializable {
         athlete.setCodeWilaya(comboCodeWilaya.getSelectionModel().getSelectedItem());
         athlete.setObservation(rInd.isSelected());
         
-        dataTableAthlete.set(indexAthleteSelected, athlete);
+        if(isNewCompetitionCall)
+            NouveauCompetitionController.dataTableAthlete.set(NouveauCompetitionController.indexAthleteSelected, athlete);
+        else
+            ModifierCompetitionController.dataTableAthlete.set(ModifierCompetitionController.indexAthleteSelected, athlete);
         
         Notifications notification = Notifications.create()
                 .title("Vous Avez Modifier L'athlète !")
@@ -228,11 +256,19 @@ public class AthleteFormController implements Initializable {
                 .position(Pos.BOTTOM_RIGHT);
         notification.darkStyle();
         notification.show();
-        athleteFormDialog.close();
+        
+        if(isNewCompetitionCall)
+            NouveauCompetitionController.athleteFormDialog.close();
+        else
+            ModifierCompetitionController.athleteFormDialog.close();
+            
     }
 
     @FXML
     private void btnClose() {
-        athleteFormDialog.close();
+        if(isNewCompetitionCall)
+            NouveauCompetitionController.athleteFormDialog.close();
+        else
+            ModifierCompetitionController.athleteFormDialog.close();
     }
 }

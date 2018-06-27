@@ -1,16 +1,16 @@
 package com.easycode.spocom.java.controllers;
 
+import static com.easycode.spocom.java.controllers.NouveauCompetitionController.dataTableAthlete;
 import com.easycode.spocom.java.controllers.form.AthleteFormController;
 import com.easycode.spocom.java.dao.db.CompetitionDao;
 import com.easycode.spocom.java.dao.vo.Athlete;
-import com.easycode.spocom.java.dao.vo.Categorie;
-import com.easycode.spocom.java.dao.vo.Competition;
 import com.easycode.spocom.java.dao.vo.CompetitionInfo;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
@@ -19,7 +19,6 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
@@ -37,30 +36,53 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
-public class NouveauCompetitionController implements Initializable {
+public class ModifierCompetitionController implements Initializable {
 
+    /* Start all part */
     @FXML
     private StackPane root;
 
     @FXML
-    private VBox infoComPane, infoCategoryPane, infoAthletePane, finishPane;
+    private JFXButton btnFinish;
+    @FXML
+    private VBox selectPane;
+    @FXML
+    private JFXTabPane editPane;
+    private JFXDialog backToHomeDialog;
 
-    @FXML // Line of progress of steps
-    private Line line1, line2, line3;
-    @FXML // Circle of progress of steps
-    private Circle cir1, cir2, cir3;
+    /* End all part */
+    
+    /* Start Select part */
+    
+    @FXML
+    private JFXComboBox<String> comboSelectCom;
 
     @FXML
-    private Label titleStep;
+    private Label lblEdition, lblTypeCom, lblDate, lblLieu;
+    
+    private List<CompetitionInfo> availableCompetition;
+    private CompetitionInfo selectedCompetition;
+    
+    /* End Select part */
+    
+    /* Start Edit part */
+    
+    @FXML
+    private JFXTextField editionComField, typeComField, lieuComField;
+    @FXML
+    private JFXDatePicker dateComPicker;
 
-    /* Start Athlete Part */
+    // Information of category
+    @FXML
+    private JFXComboBox<Integer> year1Bengemine, year2Bengemine, year1Minime, year2Minime, year1Cadet, year2Cadet,
+            year1Junior, year2Junior, year1Senior, year2Senior;
+
+    // Athlete part
     @FXML
     private JFXTextField searchAthleteField;
     @FXML
@@ -71,39 +93,90 @@ public class NouveauCompetitionController implements Initializable {
 
     private JFXTreeTableColumn<TableAthlete, String> nomCol, prenomCol, dateNaissCol, sexeCol, clubCol, codeWilayaCol,
             observationCol;
-
-    public static JFXDialog athleteFormDialog;
-
+    
+    @FXML
     private VBox athleteFormPane;
+    
+    public static JFXDialog athleteFormDialog;
     
     public static ObservableList<TableAthlete> dataTableAthlete;
     
     // Athlete selected to modifier
     public static Athlete selectedAhtlete;
     public static int indexAthleteSelected;
-
-    /* End Athlete Part */
     
-    /* Start Infos Part */
+    /* End Edit part */
     
-    @FXML
-    private JFXTextField editionComField, typeComField, lieuComField;
-    @FXML
-    private JFXDatePicker dateComPicker;
-
-    @FXML
-    private JFXComboBox<Integer> year1Bengemine, year2Bengemine, year1Minime, year2Minime, year1Cadet, year2Cadet,
-            year1Junior, year2Junior, year1Senior, year2Senior;
-
-
-    /* End Infos Part */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        availableCompetition = new CompetitionDao().getAvailableCompetition();
         dataTableAthlete = FXCollections.observableArrayList();
+        
         initializeTableAthlete();
         initiliazeCombo();
-        
-        AthleteFormController.isNewCompetitionCall = true;
+        initializeDialog();
+        AthleteFormController.isNewCompetitionCall = false;
+    }
+
+    private void initializeDialog() {
+        JFXDialogLayout content = new JFXDialogLayout();
+        Text headerText = new Text("Confirmation");
+        Text contentText = new Text("Sauvgader les données avant fermer ?");
+        headerText.setStyle("-fx-font-size: 19px");
+        contentText.setStyle("-fx-font-size: 18px");
+
+        content.setHeading(headerText);
+        content.setBody(contentText);
+
+        backToHomeDialog = new JFXDialog(root, content, JFXDialog.DialogTransition.CENTER);
+
+        JFXButton btnOk = new JFXButton("Ok");
+        JFXButton btnNo = new JFXButton("Non");
+        JFXButton btnCancel = new JFXButton("Annuler");
+        btnOk.getStyleClass().add("btn-dialog");
+        btnNo.getStyleClass().add("btn-dialog");
+        btnCancel.getStyleClass().add("btn-dialog");
+
+        btnCancel.setOnAction(e -> {
+            try {
+                StackPane accueilPane = FXMLLoader.load(getClass().getResource("/com/easycode/spocom/resources/views/Accueil.fxml"));
+                Stage stage = (Stage) root.getScene().getWindow();
+
+                //create a new scene with root and set the stage
+                Scene scene = new Scene(accueilPane);
+                stage.setScene(scene);
+
+            } catch (IOException ioe) {
+                System.out.println("Error msg(IOException): " + ioe.getMessage());
+            }
+            backToHomeDialog.close();
+        });
+
+        btnNo.setOnAction(e -> {
+            backToHomeDialog.close();
+        });
+
+        btnOk.setOnAction(e -> {
+            // Save data before closing ?
+            System.out.println("Save data before closing ?");
+
+            try {
+                StackPane accueilPane = FXMLLoader.load(getClass().getResource("/com/easycode/spocom/resources/views/Accueil.fxml"));
+                Stage stage = (Stage) root.getScene().getWindow();
+
+                //create a new scene with root and set the stage
+                Scene scene = new Scene(accueilPane);
+                stage.setScene(scene);
+
+            } catch (IOException ioe) {
+                System.out.println("Error msg(IOException): " + ioe.getMessage());
+            }
+            backToHomeDialog.close();
+        });
+
+        content.setActions(btnOk, btnNo, btnCancel);
+
+        backToHomeDialog.getStylesheets().add("/com/easycode/spocom/resources/css/main.css");
     }
 
     private void initiliazeCombo() {
@@ -121,162 +194,36 @@ public class NouveauCompetitionController implements Initializable {
             year2Senior.getItems().add(i);
 
         }
+        
+        if (availableCompetition != null) {
+            availableCompetition.forEach((item) -> {
+                comboSelectCom.getItems().add(item.getType());
+            });
+        }
 
+        comboSelectCom.setOnAction(e -> {
+            availableCompetition.forEach((CompetitionInfo item) -> {
+                if (comboSelectCom.getSelectionModel().getSelectedItem().equalsIgnoreCase(item.getType())) {
+                    lblTypeCom.setText(item.getType());
+                    lblEdition.setText(item.getEdition());
+                    lblLieu.setText(item.getLieu());
+                    lblDate.setText(item.getDate().toString());
+
+                    selectedCompetition = item;
+                    return;
+                }
+            });
+        });
+        
         comboSearchAthlete.getItems().addAll("Nom", "Prenom", "Date Naissance", "Sexe", "Club", "Code Wilaya", "Eq/Ind");
     }
 
-    @FXML
-    private void goToInfosCom() {
-
-        infoComPane.setVisible(true);
-        infoCategoryPane.setVisible(false);
-        infoAthletePane.setVisible(false);
-        finishPane.setVisible(false);
-
-        line1.setStyle("-fx-stroke: #2196f3");
-        cir1.setStyle("-fx-fill: #FFF");
-        line2.setStyle("-fx-stroke: #FFF");
-        cir2.setStyle("-fx-fill: #FFF");
-        line3.setStyle("-fx-stroke: #FFF");
-        cir3.setStyle("-fx-fill: #FFF");
-        titleStep.setText("Information Competition");
-    }
-
-    @FXML // action of button suivant of Category information
-    private void goToInfoCategorie() {
-        if (editionComField.getText().trim().isEmpty() || typeComField.getText().trim().isEmpty()
-                || dateComPicker.getValue() == null || lieuComField.getText().trim().isEmpty()) {
-            return;
-        }
-
-        infoComPane.setVisible(false);
-        infoCategoryPane.setVisible(true);
-        infoAthletePane.setVisible(false);
-        finishPane.setVisible(false);
-
-        line1.setStyle("-fx-stroke: #2196f3");
-        cir1.setStyle("-fx-fill: #2196f3");
-        line2.setStyle("-fx-stroke: #2196f3");
-        cir2.setStyle("-fx-fill: #FFF");
-        line3.setStyle("-fx-stroke: #FFF");
-        cir3.setStyle("-fx-fill: #FFF");
-        titleStep.setText("Information Catégorie");
-    }
-
-    @FXML // action of button suivant of Athele information
-    private void goToAthlete() {
-
-        if (year1Bengemine.getSelectionModel().getSelectedItem() == null
-                || year1Bengemine.getSelectionModel().getSelectedItem() == null
-                || year1Minime.getSelectionModel().getSelectedItem() == null
-                || year2Minime.getSelectionModel().getSelectedItem() == null
-                || year1Cadet.getSelectionModel().getSelectedItem() == null
-                || year2Cadet.getSelectionModel().getSelectedItem() == null
-                || year1Junior.getSelectionModel().getSelectedItem() == null
-                || year2Junior.getSelectionModel().getSelectedItem() == null
-                || year1Senior.getSelectionModel().getSelectedItem() == null
-                || year2Senior.getSelectionModel().getSelectedItem() == null) {
-            return;
-        }
-
-        infoAthletePane.setVisible(false);
-        infoCategoryPane.setVisible(false);
-        infoAthletePane.setVisible(true);
-        finishPane.setVisible(false);
-
-        line1.setStyle("-fx-stroke: #2196f3");
-        cir1.setStyle("-fx-fill: #2196f3");
-        line2.setStyle("-fx-stroke: #2196f3");
-        cir2.setStyle("-fx-fill: #2196f3");
-        line3.setStyle("-fx-stroke: #2196f3");
-        cir3.setStyle("-fx-fill: #FFF");
-        titleStep.setText("Information Athlète");
-    }
-
-    @FXML
-    private void goToFinish() {
-        infoAthletePane.setVisible(false);
-        finishPane.setVisible(true);
-
-        cir3.setStyle("-fx-fill: #2196f3");
-    }
-
-    @FXML
-    private void btnFinish() {
-        Competition competition = new Competition();
-        
-        CompetitionInfo competitionInfo = new CompetitionInfo();
-        competitionInfo.setEdition(editionComField.getText().trim().toLowerCase());
-        competitionInfo.setType(typeComField.getText().trim().toLowerCase());
-        competitionInfo.setDate(Date.valueOf(dateComPicker.getValue()));
-        competitionInfo.setLieu(lieuComField.getText().trim().toLowerCase());
-        
-        competition.setCompetitionInfo(competitionInfo);
-        
-        Categorie categorie = new Categorie();
-        categorie.setYear1Bengemine(year1Bengemine.getSelectionModel().getSelectedItem());
-        categorie.setYear2Bengemine(year2Bengemine.getSelectionModel().getSelectedItem());
-        categorie.setYear1Minime(year1Minime.getSelectionModel().getSelectedItem());
-        categorie.setYear2Minime(year2Minime.getSelectionModel().getSelectedItem());
-        categorie.setYear1Cadet(year1Cadet.getSelectionModel().getSelectedItem());
-        categorie.setYear2Cadet(year2Cadet.getSelectionModel().getSelectedItem());
-        categorie.setYear1Junior(year1Junior.getSelectionModel().getSelectedItem());
-        categorie.setYear2Junior(year2Junior.getSelectionModel().getSelectedItem());
-        categorie.setYear1Senior(year1Senior.getSelectionModel().getSelectedItem());
-        categorie.setYear2Senior(year2Senior.getSelectionModel().getSelectedItem());
-
-        competition.setCategory(categorie);
-
-        List<Athlete> athletes = new LinkedList<>();
-
-        if (dataTableAthlete != null) {
-
-            for (int i = 0; i < dataTableAthlete.size(); i++) {
-                TableAthlete item = dataTableAthlete.get(i);
-
-                Athlete athlete = new Athlete();
-                athlete.setNom(item.getNom());
-                athlete.setPrenom(item.getNom());
-                athlete.setDateNaiss(item.getDateNaiss());
-                athlete.setSexe(item.getSexe());
-                athlete.setClub(item.getClub());
-                athlete.setCodeWilaya(item.getCodeWilaya());
-                athlete.setObservation(item.getObservation());
-
-                athletes.add(athlete);
-            }
-            competition.setAthletes(athletes);
-
-        }
-
-        int status = new CompetitionDao().addCompetition(competition);
-
-        if (status == 1) {
-            System.out.println("Connection failed !");
-            return;
-        }
-
-        try {
-            StackPane accueilPane = FXMLLoader.load(getClass().getResource("/com/easycode/spocom/resources/views/Accueil.fxml"));
-            Stage stage = (Stage) root.getScene().getWindow();
-
-            //create a new scene with root and set the stage
-            Scene scene = new Scene(accueilPane);
-            stage.setScene(scene);
-
-        } catch (IOException ioe) {
-            System.out.println(ioe.getMessage());
-        }
-
-    }
-
-    /* Start Athlete Part */
-
     private void initializeTableAthlete() {
-
+        System.out.println("After 1");
         nomCol = new JFXTreeTableColumn<>("Nom");
         nomCol.setPrefWidth(130);
         nomCol.setCellValueFactory((TreeTableColumn.CellDataFeatures<TableAthlete, String> param) -> param.getValue().getValue().nom);
+        System.out.println("After 2");
 
         prenomCol = new JFXTreeTableColumn<>("Prenom");
         prenomCol.setPrefWidth(140);
@@ -304,10 +251,15 @@ public class NouveauCompetitionController implements Initializable {
 
         tableAthlete.getColumns().addAll(nomCol, prenomCol, dateNaissCol, sexeCol, clubCol, codeWilayaCol, observationCol);
         tableAthlete.setShowRoot(false);
-
-        final TreeItem<TableAthlete> treeItem = new RecursiveTreeItem<>(dataTableAthlete, RecursiveTreeObject::getChildren);
+        
+        TreeItem<TableAthlete> treeItem = null;
+        try {
+            treeItem = new RecursiveTreeItem<>(dataTableAthlete, RecursiveTreeObject::getChildren);
+        } catch(Exception e) {
+            System.out.println("Exception : No Element in the List");
+        }
+        
         tableAthlete.setRoot(treeItem);
-
         searchAthleteField.textProperty().addListener(e -> {
             filterSearchTable();
         });
@@ -347,6 +299,64 @@ public class NouveauCompetitionController implements Initializable {
                 }
             }
         });
+    }
+
+    @FXML
+    private void btnAccueil() {
+        try {
+            StackPane accueilPane = FXMLLoader.load(getClass().getResource("/com/easycode/spocom/resources/views/Accueil.fxml"));
+            Stage stage = (Stage) root.getScene().getWindow();
+
+            //create a new scene with root and set the stage
+            Scene scene = new Scene(accueilPane);
+            stage.setScene(scene);
+
+        } catch (IOException ioe) {
+            System.out.println("Error msg(IOException): " + ioe.getMessage());
+        }
+    }
+
+    // Edit Part
+    @FXML
+    private void goToInfosCom() {
+
+    }
+
+    @FXML // action of button suivant of Category information
+    private void goToInfoCategorie() {
+        if (editionComField.getText().trim().isEmpty() || typeComField.getText().trim().isEmpty()
+                || dateComPicker.getValue() == null || lieuComField.getText().trim().isEmpty()) {
+            return;
+        }
+
+    }
+
+    @FXML // action of button suivant of Athele information
+    private void goToAthlete() {
+
+        if (year1Bengemine.getSelectionModel().getSelectedItem() == null
+                || year1Bengemine.getSelectionModel().getSelectedItem() == null
+                || year1Minime.getSelectionModel().getSelectedItem() == null
+                || year2Minime.getSelectionModel().getSelectedItem() == null
+                || year1Cadet.getSelectionModel().getSelectedItem() == null
+                || year2Cadet.getSelectionModel().getSelectedItem() == null
+                || year1Junior.getSelectionModel().getSelectedItem() == null
+                || year2Junior.getSelectionModel().getSelectedItem() == null
+                || year1Senior.getSelectionModel().getSelectedItem() == null
+                || year2Senior.getSelectionModel().getSelectedItem() == null) {
+            return;
+        }
+
+    }
+
+    @FXML
+    public void btnSuivant() {
+        if (comboSelectCom.getSelectionModel().getSelectedItem() == null) {
+            return;
+        }
+        selectPane.setVisible(false);
+        editPane.setVisible(true);
+        btnFinish.setDisable(false);
     }
 
     @FXML
@@ -446,49 +456,4 @@ public class NouveauCompetitionController implements Initializable {
         o.forEach(dataTableAthlete::remove);
     }
 
-    /* End Athlete Part */
-    
-    @FXML
-    private void btnBackToHome() {
-        JFXDialogLayout content = new JFXDialogLayout();
-        Text headerText = new Text("Confirmation");
-        Text contentText = new Text("Vous voulez quitter l'operation d'ajouter ?");
-        headerText.setStyle("-fx-font-size: 19px");
-        contentText.setStyle("-fx-font-size: 18px");
-
-        content.setHeading(headerText);
-        content.setBody(contentText);
-
-        JFXDialog dialog = new JFXDialog(root, content, JFXDialog.DialogTransition.CENTER);
-
-        JFXButton btnOk = new JFXButton("Oui");
-        JFXButton btnNo = new JFXButton("Non");
-        btnOk.getStyleClass().add("btn-dialog");
-        btnNo.getStyleClass().add("btn-dialog");
-
-        btnOk.setOnAction(e -> {
-            try {
-                StackPane accueilPane = FXMLLoader.load(getClass().getResource("/com/easycode/spocom/resources/views/Accueil.fxml"));
-                Stage stage = (Stage) root.getScene().getWindow();
-
-                //create a new scene with root and set the stage
-                Scene scene = new Scene(accueilPane);
-                stage.setScene(scene);
-
-            } catch (IOException ioe) {
-                System.out.println("Error msg(IOException): " + ioe.getMessage());
-            }
-            dialog.close();
-        });
-
-        btnNo.setOnAction(e -> {
-            dialog.close();
-        });
-
-        content.setActions(btnOk, btnNo);
-        StackPane stackpane = new StackPane();
-
-        dialog.getStylesheets().add("/com/easycode/spocom/resources/css/main.css");
-        dialog.show();
-    }
 }

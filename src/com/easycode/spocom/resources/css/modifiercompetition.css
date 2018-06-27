@@ -1,0 +1,58 @@
+.title {
+    -fx-font-size: 24px
+}
+
+.line:hover {
+    -fx-cursor: hand
+}
+
+.label-field {
+    -fx-font-size: 20px
+}
+
+.combo {
+    -fx-font-size: 14px
+}
+
+.combo:hover {
+    -fx-cursor: hand
+}
+
+.btn-athlete {
+    -fx-font-size: 18px;
+}
+
+.lbl-acceder {
+    -fx-font-size: 22px
+}
+
+.lbl-acceder-title {
+    -fx-text-fill: #2196f3
+}
+
+
+.jfx-tab-pane {
+    -fx-padding: 1px;
+    -fx-background-color: blue, -fx-control-inner-background;
+    -fx-background-insets: 0, 1
+}
+
+.jfx-tab-pane .headers-region {
+    -fx-background-color: #4DABF5
+}
+
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color: #4DABF5
+}
+
+.jfx-tab-pane .tab-header-area .jfx-rippler {
+    -jfx-rippler-fill: orange
+}
+
+.jfx-tab-pane .tab-header-area .tab-selected-line {
+    -fx-stroke: red
+}
+
+JFXTabPane:hover {
+    -fx-cursor: hand
+}

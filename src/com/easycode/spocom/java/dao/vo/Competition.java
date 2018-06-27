@@ -5,10 +5,7 @@ import java.util.List;
 
 public class Competition {
 
-    private String edition;
-    private String type;
-    private Date date;
-    private String lieu;
+    CompetitionInfo competitionInfo;
 
     Categorie category;
 
@@ -18,45 +15,10 @@ public class Competition {
 
     }
 
-    public Competition(String edition, String type, Date date, String lieu, Categorie category, List<Athlete> athletes) {
-        this.edition = edition;
-        this.type = type;
-        this.date = date;
-        this.lieu = lieu;
+    public Competition(CompetitionInfo competitionInfo, Categorie category, List<Athlete> athletes) {
+        this.competitionInfo = competitionInfo;
         this.category = category;
         this.athletes = athletes;
-    }
-
-    public String getEdition() {
-        return edition;
-    }
-
-    public void setEdition(String edition) {
-        this.edition = edition;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public String getLieu() {
-        return lieu;
-    }
-
-    public void setLieu(String lieu) {
-        this.lieu = lieu;
     }
 
     public Categorie getCategory() {
@@ -75,6 +37,14 @@ public class Competition {
         this.athletes = athletes;
     }
 
+    public Categorie getCompetitionInfo() {
+        return category;
+    }
+
+    public void setCompetitionInfo(CompetitionInfo competitionInfo) {
+        this.competitionInfo = competitionInfo;
+    }
+
     @Override
     public String toString() {
         String strAthlete = "Athlete : {";
@@ -84,12 +54,12 @@ public class Competition {
                         + ", " + e.getCodeWilaya() + "], ";
             }
             strAthlete = strAthlete.substring(0, strAthlete.length() - 2);
+            strAthlete += "}";
         }
-        
+
         strAthlete += "}";
 
-        String data = "Competition : { " + edition + ", " + type + ", " + date.toString() + ", " + lieu + category.toString()
-                + "[" + strAthlete + "]";
+        String data = "Competition : { " + competitionInfo + ", " + category + ", " + strAthlete + "}";
 
         return data;
     }

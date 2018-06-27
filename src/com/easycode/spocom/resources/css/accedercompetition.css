@@ -1,0 +1,24 @@
+.title {
+    -fx-font-size: 30px
+}
+
+.lbl-acceder {
+    -fx-font-size: 22px
+}
+
+.lbl-acceder-title {
+    -fx-text-fill: #2196f3
+}
+
+.dosField {
+    -fx-font-size: 40px
+}
+
+.icon-ok {
+    -fx-fill: #4DABF5
+}
+
+.icon-ok:hover {
+    -fx-fill: #2196f3;
+    -fx-cursor: hand
+}

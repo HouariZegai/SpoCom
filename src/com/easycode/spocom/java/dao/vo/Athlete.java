@@ -10,7 +10,7 @@ public class Athlete {
     private boolean sexe; // true => Homme, false => femme
     private String club;
     private int codeWilaya;
-    private boolean observation;
+    private boolean observation; // True -> Ind, False -> Equipe
     
     public Athlete() {
         

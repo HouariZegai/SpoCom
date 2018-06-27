@@ -20,6 +20,7 @@ public class AccueilController implements Initializable {
     public static JFXDialog aboutDialog;
 
     private StackPane nouveauCompetitionWindow;
+    private AnchorPane accederCompetitionWindow;
 
     private Stage stage;
 
@@ -57,7 +58,18 @@ public class AccueilController implements Initializable {
 
     @FXML
     private void boxGoToComp() {
+        try {
+             accederCompetitionWindow = FXMLLoader.load(getClass().
+                    getResource("/com/easycode/spocom/resources/views/AccederCompetition.fxml"));
+        } catch(IOException ioe) {
+            System.out.println("Error msg(IOException) : " + ioe.getMessage());
+        }
+        
+        stage = (Stage) root.getScene().getWindow();
 
+        //create a new scene with root and set the stage
+        Scene scene = new Scene(accederCompetitionWindow);
+        stage.setScene(scene);
     }
 
     @FXML

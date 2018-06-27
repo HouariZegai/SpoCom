@@ -13,7 +13,7 @@ public class Launch extends Application {
     public void start(Stage stage) {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/com/easycode/spocom/resources/views/NouveauCompetition.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/com/easycode/spocom/resources/views/ModifierCompetition.fxml"));
         } catch (IOException ex) {
             System.out.println("Error msg: " + ex.getMessage());
         }

@@ -14,6 +14,16 @@
     -fx-font-size: 16px
 }
 
+.label-back {
+    -fx-font-size: 22px;
+    -fx-text-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, #4DABF5 0%, #2196f3 100%);
+}
+
+.label-back:hover {
+    -fx-cursor: hand;
+    -fx-text-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, #2196f3 100%);
+}
+
 /* Start all button style */
 
 JFXButton {
