@@ -3,14 +3,14 @@ package com.easycode.spocom.java.controllers;
 import com.easycode.spocom.java.controllers.form.AthleteFormController;
 import com.easycode.spocom.java.dao.db.CompetitionDao;
 import com.easycode.spocom.java.dao.vo.Athlete;
-import com.easycode.spocom.java.dao.vo.Categorie;
 import com.easycode.spocom.java.dao.vo.Competition;
-import com.easycode.spocom.java.dao.vo.CompetitionInfo;
+import com.easycode.spocom.java.dao.vo.CompetitionBuilder;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
@@ -35,6 +35,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
@@ -56,11 +57,14 @@ public class NouveauCompetitionController implements Initializable {
     private Line line1, line2, line3;
     @FXML // Circle of progress of steps
     private Circle cir1, cir2, cir3;
-
+    
     @FXML
     private Label titleStep;
 
+    private JFXSnackbar toastMsg;
+
     /* Start Athlete Part */
+    
     @FXML
     private JFXTextField searchAthleteField;
     @FXML
@@ -75,15 +79,15 @@ public class NouveauCompetitionController implements Initializable {
     public static JFXDialog athleteFormDialog;
 
     private VBox athleteFormPane;
-    
+
     public static ObservableList<TableAthlete> dataTableAthlete;
-    
+
     // Athlete selected to modifier
     public static Athlete selectedAhtlete;
     public static int indexAthleteSelected;
 
     /* End Athlete Part */
-    
+ 
     /* Start Infos Part */
     
     @FXML
@@ -95,14 +99,34 @@ public class NouveauCompetitionController implements Initializable {
     private JFXComboBox<Integer> year1Bengemine, year2Bengemine, year1Minime, year2Minime, year1Cadet, year2Cadet,
             year1Junior, year2Junior, year1Senior, year2Senior;
 
-
     /* End Infos Part */
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         dataTableAthlete = FXCollections.observableArrayList();
         initializeTableAthlete();
         initiliazeCombo();
-        
+
+        toastMsg = new JFXSnackbar(root);
+        toastMsg.getStylesheets().add("/com/easycode/spocom/resources/css/main.css");
+
+        // Shortcut if Enter typed
+        infoComPane.setOnKeyReleased(e -> {
+            if (e.getCode().equals(KeyCode.ENTER)) {
+                goToInfoCategorie();
+            }
+        });
+        infoCategoryPane.setOnKeyReleased(e -> {
+            if (e.getCode().equals(KeyCode.ENTER)) {
+                goToAthlete();
+            }
+        });
+        infoAthletePane.setOnKeyReleased(e -> {
+            if (e.getCode().equals(KeyCode.ENTER)) {
+                goToAthlete();
+            }
+        });
+
         AthleteFormController.isNewCompetitionCall = true;
     }
 
@@ -144,8 +168,24 @@ public class NouveauCompetitionController implements Initializable {
 
     @FXML // action of button suivant of Category information
     private void goToInfoCategorie() {
-        if (editionComField.getText().trim().isEmpty() || typeComField.getText().trim().isEmpty()
-                || dateComPicker.getValue() == null || lieuComField.getText().trim().isEmpty()) {
+        if (editionComField.getText().trim().isEmpty()) {
+            toastMsg.show("Svp, Remplir l'Edition", 3000);
+            return;
+        }
+        if (!editionComField.getText().matches("[0-9]+")) {
+            toastMsg.show("l'Edition sera seulement nombre !", 3000);
+            return;
+        }
+        if (typeComField.getText().trim().isEmpty()) {
+            toastMsg.show("Svp, Remplir le Type de competition", 3000);
+            return;
+        }
+        if (dateComPicker.getValue() == null) {
+            toastMsg.show("Svp, Remplir la date de competition", 3000);
+            return;
+        }
+        if (lieuComField.getText().trim().isEmpty()) {
+            toastMsg.show("Svp, Remplir le lieu de competition", 3000);
             return;
         }
 
@@ -167,18 +207,31 @@ public class NouveauCompetitionController implements Initializable {
     private void goToAthlete() {
 
         if (year1Bengemine.getSelectionModel().getSelectedItem() == null
-                || year1Bengemine.getSelectionModel().getSelectedItem() == null
-                || year1Minime.getSelectionModel().getSelectedItem() == null
-                || year2Minime.getSelectionModel().getSelectedItem() == null
-                || year1Cadet.getSelectionModel().getSelectedItem() == null
-                || year2Cadet.getSelectionModel().getSelectedItem() == null
-                || year1Junior.getSelectionModel().getSelectedItem() == null
-                || year2Junior.getSelectionModel().getSelectedItem() == null
-                || year1Senior.getSelectionModel().getSelectedItem() == null
-                || year2Senior.getSelectionModel().getSelectedItem() == null) {
+                || year1Bengemine.getSelectionModel().getSelectedItem() == null) {
+            toastMsg.show("Svp, Selectionner l'année de Bengemine", 3000);
             return;
         }
-
+        if (year1Minime.getSelectionModel().getSelectedItem() == null
+                || year2Minime.getSelectionModel().getSelectedItem() == null) {
+            toastMsg.show("Svp, Selectionner l'année de Minime", 3000);
+            return;
+        }
+        if (year1Cadet.getSelectionModel().getSelectedItem() == null
+                || year2Cadet.getSelectionModel().getSelectedItem() == null) {
+            toastMsg.show("Svp, Selectionner l'année de Cadet", 3000);
+            return;
+        }
+        if (year1Junior.getSelectionModel().getSelectedItem() == null
+                || year2Junior.getSelectionModel().getSelectedItem() == null) {
+            toastMsg.show("Svp, Selectionner l'année de Junior", 3000);
+            return;
+        }
+        if (year1Senior.getSelectionModel().getSelectedItem() == null
+                || year2Senior.getSelectionModel().getSelectedItem() == null) {
+            toastMsg.show("Svp, Selectionner l'année de Senior", 3000);
+            return;
+        }
+        
         infoAthletePane.setVisible(false);
         infoCategoryPane.setVisible(false);
         infoAthletePane.setVisible(true);
@@ -203,57 +256,49 @@ public class NouveauCompetitionController implements Initializable {
 
     @FXML
     private void btnFinish() {
-        Competition competition = new Competition();
-        
-        CompetitionInfo competitionInfo = new CompetitionInfo();
-        competitionInfo.setEdition(editionComField.getText().trim().toLowerCase());
-        competitionInfo.setType(typeComField.getText().trim().toLowerCase());
-        competitionInfo.setDate(Date.valueOf(dateComPicker.getValue()));
-        competitionInfo.setLieu(lieuComField.getText().trim().toLowerCase());
-        
-        competition.setCompetitionInfo(competitionInfo);
-        
-        Categorie categorie = new Categorie();
-        categorie.setYear1Bengemine(year1Bengemine.getSelectionModel().getSelectedItem());
-        categorie.setYear2Bengemine(year2Bengemine.getSelectionModel().getSelectedItem());
-        categorie.setYear1Minime(year1Minime.getSelectionModel().getSelectedItem());
-        categorie.setYear2Minime(year2Minime.getSelectionModel().getSelectedItem());
-        categorie.setYear1Cadet(year1Cadet.getSelectionModel().getSelectedItem());
-        categorie.setYear2Cadet(year2Cadet.getSelectionModel().getSelectedItem());
-        categorie.setYear1Junior(year1Junior.getSelectionModel().getSelectedItem());
-        categorie.setYear2Junior(year2Junior.getSelectionModel().getSelectedItem());
-        categorie.setYear1Senior(year1Senior.getSelectionModel().getSelectedItem());
-        categorie.setYear2Senior(year2Senior.getSelectionModel().getSelectedItem());
-
-        competition.setCategory(categorie);
 
         List<Athlete> athletes = new LinkedList<>();
 
         if (dataTableAthlete != null) {
-
             for (int i = 0; i < dataTableAthlete.size(); i++) {
                 TableAthlete item = dataTableAthlete.get(i);
 
                 Athlete athlete = new Athlete();
+                athlete.setnDos(i + 1);
                 athlete.setNom(item.getNom());
-                athlete.setPrenom(item.getNom());
+                athlete.setPrenom(item.getPrenom());
                 athlete.setDateNaiss(item.getDateNaiss());
                 athlete.setSexe(item.getSexe());
                 athlete.setClub(item.getClub());
                 athlete.setCodeWilaya(item.getCodeWilaya());
-                athlete.setObservation(item.getObservation());
-
+                athlete.setObs(item.getObservation());
                 athletes.add(athlete);
             }
-            competition.setAthletes(athletes);
-
         }
+
+        Competition competition = new CompetitionBuilder()
+                .setEdition(Integer.parseInt(editionComField.getText().trim()))
+                .setType(typeComField.getText().trim().toLowerCase())
+                .setDate(Date.valueOf(dateComPicker.getValue()))
+                .setLieu(lieuComField.getText().trim().toLowerCase())
+                .setBengemine("" + year1Bengemine.getSelectionModel().getSelectedItem() + year2Bengemine.getSelectionModel().getSelectedItem())
+                .setMinime("" + year1Minime.getSelectionModel().getSelectedItem() + year2Minime.getSelectionModel().getSelectedItem())
+                .setCadet("" + year1Cadet.getSelectionModel().getSelectedItem() + year2Cadet.getSelectionModel().getSelectedItem())
+                .setJunior("" + year1Junior.getSelectionModel().getSelectedItem() + year2Junior.getSelectionModel().getSelectedItem())
+                .setSenior("" + year1Senior.getSelectionModel().getSelectedItem() + year2Senior.getSelectionModel().getSelectedItem())
+                .setAthlete(athletes)
+                .getCompetition();
 
         int status = new CompetitionDao().addCompetition(competition);
 
-        if (status == 1) {
+        if (status == -1) {
             System.out.println("Connection failed !");
             return;
+        } else if (status == 1) {
+            System.out.println("Error Insert !");
+            return;
+        } else {
+            System.out.println("Successed added new competition ^^ !");
         }
 
         try {
@@ -269,9 +314,9 @@ public class NouveauCompetitionController implements Initializable {
         }
 
     }
-
+    
     /* Start Athlete Part */
-
+    
     private void initializeTableAthlete() {
 
         nomCol = new JFXTreeTableColumn<>("Nom");
@@ -378,7 +423,7 @@ public class NouveauCompetitionController implements Initializable {
         selectedAhtlete.setSexe(sexeCol.getCellData(indexAthleteSelected).equalsIgnoreCase("Homme"));
         selectedAhtlete.setClub(clubCol.getCellData(indexAthleteSelected));
         selectedAhtlete.setCodeWilaya(Integer.parseInt(codeWilayaCol.getCellData(indexAthleteSelected)));
-        selectedAhtlete.setObservation(observationCol.getCellData(indexAthleteSelected).equalsIgnoreCase("Ind"));
+        selectedAhtlete.setObs(observationCol.getCellData(indexAthleteSelected).equalsIgnoreCase("Ind"));
 
         athleteFormPane = null;
         try {
@@ -491,4 +536,5 @@ public class NouveauCompetitionController implements Initializable {
         dialog.getStylesheets().add("/com/easycode/spocom/resources/css/main.css");
         dialog.show();
     }
+
 }

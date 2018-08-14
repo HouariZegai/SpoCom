@@ -13,9 +13,9 @@ public class Launch extends Application {
     public void start(Stage stage) {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/com/easycode/spocom/resources/views/ModifierCompetition.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/com/easycode/spocom/resources/views/AccederCompetition.fxml"));
         } catch (IOException ex) {
-            System.out.println("Error msg: " + ex.getMessage());
+            ex.printStackTrace();
         }
         Scene scene = new Scene(root);
         

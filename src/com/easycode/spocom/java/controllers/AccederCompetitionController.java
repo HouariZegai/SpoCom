@@ -2,25 +2,23 @@ package com.easycode.spocom.java.controllers;
 
 import com.easycode.spocom.java.dao.db.CompetitionDao;
 import com.easycode.spocom.java.dao.vo.Athlete;
-import com.easycode.spocom.java.dao.vo.CompetitionInfo;
+import com.easycode.spocom.java.dao.vo.Competition;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXToggleButton;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -44,9 +42,11 @@ public class AccederCompetitionController implements Initializable {
 
     @FXML
     private VBox selectPane, saveComPane;
-
+    
     private JFXDialog backToHomeDialog;
 
+    private JFXSnackbar toastMsg;
+    
     /* Start select competition */
     
     @FXML
@@ -62,26 +62,24 @@ public class AccederCompetitionController implements Initializable {
     private HBox boxDos;
     
     // Information of available competition
-    private List<CompetitionInfo> availableCompetition;
-    private CompetitionInfo selectedCompetition;
+    private List<Competition> availableCompetition;
+    
+    // id of selected competition
+    private int selectedCompetitionId;
     private Map<Integer, Athlete> athleteOfCompetition;
-
-    @FXML
-    private JFXComboBox<String> comboSelectCategory;
-    @FXML
-    private JFXToggleButton toggleSexe;
-
+    
     @FXML
     private JFXTextField dosScoreField;
 
     @FXML
     private JFXTreeTableView tableClassement;
+    // rows (data) of table
+    TreeItem<TableAthlete> treeItem = null;
+    // Data of classement table
+    private ObservableList<TableAthlete> dataAthlete;
 
-    private JFXTreeTableColumn<TableAthlete, String> nomCol, prenomCol, dateNaissCol, clubCol, codeWilayaCol,
+    private JFXTreeTableColumn<TableAthlete, String> nDosCol, nomCol, prenomCol, dateNaissCol, clubCol, codeWilayaCol,
             observationCol;
-
-    private ObservableList<TableAthlete> dataBengemineH, dataBengemineF, dataMinimeH, dataMinimeF, dataCadetH, dataCadetF,
-            dataJuniorH, dataJuniorF, dataSeniorH, dataSeniorF;
 
     /* End Classement competition part */
     
@@ -92,8 +90,12 @@ public class AccederCompetitionController implements Initializable {
         initializeDialog();
         initializeCombo();
         initializeTableAthlete();
-        initializeDataOfTable();
         
+        dataAthlete = FXCollections.observableArrayList();
+        
+        toastMsg = new JFXSnackbar(root);
+        toastMsg.getStylesheets().add("/com/easycode/spocom/resources/css/main.css");
+
         selectPane.setOnKeyReleased(e -> {
             if(e.getCode().equals(KeyCode.ENTER)) {
                 btnSuivant();
@@ -106,9 +108,6 @@ public class AccederCompetitionController implements Initializable {
             }
         });
         
-        toggleSexe.setOnAction(e -> {
-            toggleSexe.setText((toggleSexe.getText().equals("Homme")) ? "Femme" : "Homme");
-        });
     }
 
     private void initializeCombo() {
@@ -121,96 +120,19 @@ public class AccederCompetitionController implements Initializable {
         }
 
         comboSelectCom.setOnAction(e -> {
-            availableCompetition.forEach((CompetitionInfo item) -> {
+            availableCompetition.forEach((Competition item) -> {
                 if (comboSelectCom.getSelectionModel().getSelectedItem().equalsIgnoreCase(item.getType())) {
                     lblTypeCom.setText(item.getType());
-                    lblEdition.setText(item.getEdition());
+                    lblEdition.setText("" + item.getEdition());
                     lblLieu.setText(item.getLieu());
                     lblDate.setText(item.getDate().toString());
-
-                    selectedCompetition = item;
+                    selectedCompetitionId = item.getIdCom();
                     return;
                 }
             });
         });
-
-        comboSelectCategory.getItems().addAll("Bengemine", "Minime", "Cadet", "Junior", "Senior");
-        comboSelectCategory.setOnAction(e -> {
-            loadDataToTable();
-            boxDos.setVisible(true);
-        });
-        toggleSexe.setOnAction(e -> {
-            loadDataToTable();
-        });
     }
 
-    private void loadDataToTable() {
-        // This function change to data of the table (Change category or sexe)
-
-        final TreeItem<TableAthlete> treeItem;
-        if (toggleSexe.isSelected()) {
-            switch (comboSelectCategory.getSelectionModel().getSelectedItem()) {
-                case "Bengemine":
-                    treeItem = new RecursiveTreeItem<>(dataBengemineH, RecursiveTreeObject::getChildren);
-                    tableClassement.setRoot(treeItem);
-                    break;
-                case "Minime":
-                    treeItem = new RecursiveTreeItem<>(dataMinimeH, RecursiveTreeObject::getChildren);
-                    tableClassement.setRoot(treeItem);
-                    break;
-                case "Cadet":
-                    treeItem = new RecursiveTreeItem<>(dataCadetH, RecursiveTreeObject::getChildren);
-                    tableClassement.setRoot(treeItem);
-                    break;
-                case "Junior":
-                    treeItem = new RecursiveTreeItem<>(dataJuniorH, RecursiveTreeObject::getChildren);
-                    tableClassement.setRoot(treeItem);
-                    break;
-                case "Senior":
-                    treeItem = new RecursiveTreeItem<>(dataSeniorH, RecursiveTreeObject::getChildren);
-                    tableClassement.setRoot(treeItem);
-                    break;
-            }
-        } else {
-            switch (comboSelectCategory.getSelectionModel().getSelectedItem()) {
-                case "Bengemine":
-                    treeItem = new RecursiveTreeItem<>(dataBengemineF, RecursiveTreeObject::getChildren);
-                    tableClassement.setRoot(treeItem);
-                    break;
-                case "Minime":
-                    treeItem = new RecursiveTreeItem<>(dataMinimeF, RecursiveTreeObject::getChildren);
-                    tableClassement.setRoot(treeItem);
-                    break;
-                case "Cadet":
-                    treeItem = new RecursiveTreeItem<>(dataCadetF, RecursiveTreeObject::getChildren);
-                    tableClassement.setRoot(treeItem);
-                    break;
-                case "Junior":
-                    treeItem = new RecursiveTreeItem<>(dataJuniorF, RecursiveTreeObject::getChildren);
-                    tableClassement.setRoot(treeItem);
-                    break;
-                case "Senior":
-                    treeItem = new RecursiveTreeItem<>(dataSeniorF, RecursiveTreeObject::getChildren);
-                    tableClassement.setRoot(treeItem);
-                    break;
-            }
-        }
-
-    }
-    
-    private void initializeDataOfTable() {
-        dataBengemineH = FXCollections.observableArrayList();
-        dataBengemineF = FXCollections.observableArrayList();
-        dataMinimeH = FXCollections.observableArrayList();
-        dataMinimeF = FXCollections.observableArrayList();
-        dataCadetH = FXCollections.observableArrayList();
-        dataCadetF = FXCollections.observableArrayList();
-        dataJuniorH = FXCollections.observableArrayList();
-        dataJuniorF = FXCollections.observableArrayList();
-        dataSeniorH = FXCollections.observableArrayList();
-        dataSeniorF = FXCollections.observableArrayList();
-    }
-    
     private void initializeDialog() {
         JFXDialogLayout content = new JFXDialogLayout();
         Text headerText = new Text("Confirmation");
@@ -253,19 +175,18 @@ public class AccederCompetitionController implements Initializable {
     }
 
     @FXML
-    private void btnSuivant() {
-        if (comboSelectCom.getSelectionModel().getSelectedItem() == null) {
+    public void btnSuivant() {
+        if(comboSelectCom.getSelectionModel().getSelectedItem() == null) {
+            toastMsg.show("Svp, selectionner un competition pour continuer !", 3000);
             return;
         }
-
-        athleteOfCompetition = new CompetitionDao().getAthleteOfCompetition(selectedCompetition);
-
+        athleteOfCompetition = new CompetitionDao().getAthleteOfCompetition(selectedCompetitionId);
         selectPane.setVisible(false);
         saveComPane.setVisible(true);
     }
 
     @FXML
-    private void btnBackToHome() {
+    public void btnBackToHome() {
         if (backToHomeDialog.isVisible()) {
             return;
         }
@@ -276,6 +197,10 @@ public class AccederCompetitionController implements Initializable {
     /* Start Classement competition part */
 
     private void initializeTableAthlete() {
+
+        nDosCol = new JFXTreeTableColumn<>("N°Dos");
+        nDosCol.setPrefWidth(100);
+        nDosCol.setCellValueFactory((TreeTableColumn.CellDataFeatures<TableAthlete, String> param) -> param.getValue().getValue().nDos);
 
         nomCol = new JFXTreeTableColumn<>("Nom");
         nomCol.setPrefWidth(130);
@@ -293,69 +218,58 @@ public class AccederCompetitionController implements Initializable {
         clubCol.setPrefWidth(150);
         clubCol.setCellValueFactory((TreeTableColumn.CellDataFeatures<TableAthlete, String> param) -> param.getValue().getValue().club);
 
-        codeWilayaCol = new JFXTreeTableColumn<>("Code Wilaya");
-        codeWilayaCol.setPrefWidth(100);
+        codeWilayaCol = new JFXTreeTableColumn<>("C.W");
+        codeWilayaCol.setPrefWidth(80);
         codeWilayaCol.setCellValueFactory((TreeTableColumn.CellDataFeatures<TableAthlete, String> param) -> param.getValue().getValue().codeWilaya);
 
         observationCol = new JFXTreeTableColumn<>("Eq/Ind");
         observationCol.setPrefWidth(80);
         observationCol.setCellValueFactory((TreeTableColumn.CellDataFeatures<TableAthlete, String> param) -> param.getValue().getValue().observation);
-
-        tableClassement.getColumns().addAll(nomCol, prenomCol, dateNaissCol, clubCol, codeWilayaCol, observationCol);
+        
+        tableClassement.getColumns().addAll(nDosCol, nomCol, prenomCol, dateNaissCol, clubCol, codeWilayaCol, observationCol);
         tableClassement.setShowRoot(false);
-
     }
 
     @FXML
-    private void addScore() {
-        if (dosScoreField.getText().trim().isEmpty()) {
+    public void addScore() {
+        if (!dosScoreField.getText().matches("[0-9]+")) {
             return;
         }
+        
+        Athlete athleteArrive = athleteOfCompetition.get(Integer.parseInt(dosScoreField.getText()));
+        if(athleteArrive != null) {
+            dataAthlete.add(new TableAthlete(athleteArrive.getnDos(), athleteArrive.getNom(),
+            athleteArrive.getPrenom(), athleteArrive.getDateNaiss(), athleteArrive.getSexe(), athleteArrive.getClub(), 
+                    athleteArrive.getCodeWilaya(), athleteArrive.getObs()));
 
-        TableAthlete athleteArrive = new TableAthlete();
-        // Missing to add information about athlete arrive
-
-        if (toggleSexe.isSelected()) {
-            switch (comboSelectCategory.getSelectionModel().getSelectedItem()) {
-                case "Bengemine":
-                    dataBengemineH.add(athleteArrive);
-                    break;
-                case "Minime":
-                    dataMinimeH.add(athleteArrive);
-                    break;
-                case "Cadet":
-                    dataCadetH.add(athleteArrive);
-                    break;
-                case "Junior":
-                    dataJuniorH.add(athleteArrive);
-                    break;
-                case "Senior":
-                    dataSeniorH.add(athleteArrive);
-                    break;
-            }
-        } else {
-            switch (comboSelectCategory.getSelectionModel().getSelectedItem()) {
-                case "Bengemine":
-                    dataBengemineF.add(athleteArrive);
-                    break;
-                case "Minime":
-                    dataMinimeF.add(athleteArrive);
-                    break;
-                case "Cadet":
-                    dataCadetF.add(athleteArrive);
-                    break;
-                case "Junior":
-                    dataJuniorF.add(athleteArrive);
-                    break;
-                case "Senior":
-                    dataSeniorF.add(athleteArrive);
-                    break;
-            }
+            treeItem = new RecursiveTreeItem<>(dataAthlete, RecursiveTreeObject::getChildren);
+            tableClassement.setRoot(treeItem);
         }
         
         dosScoreField.setText("");
     }
 
+    @FXML
+    public void onOtherCom() {
+        List<Integer> numbersDos = new ArrayList<>();
+        for (int i = 0; i < dataAthlete.size(); i++) {
+            numbersDos.add(dataAthlete.get(i).getNDos());
+            athleteOfCompetition.remove(numbersDos.get(i));
+        }
+        boolean status = new CompetitionDao().addClassement(selectedCompetitionId, numbersDos);
+        if(status) {
+            System.out.println("Inserted without any error !");
+        }
+        
+        
+        
+        // Make table empty
+        dataAthlete.clear();
+        treeItem = new RecursiveTreeItem<>(dataAthlete, RecursiveTreeObject::getChildren);
+        tableClassement.setRoot(treeItem);
+        
+    }
+    
     /* End Classement competition part */
     
 }

@@ -1,10 +1,9 @@
 package com.easycode.spocom.java.controllers;
 
-import static com.easycode.spocom.java.controllers.NouveauCompetitionController.dataTableAthlete;
 import com.easycode.spocom.java.controllers.form.AthleteFormController;
 import com.easycode.spocom.java.dao.db.CompetitionDao;
 import com.easycode.spocom.java.dao.vo.Athlete;
-import com.easycode.spocom.java.dao.vo.CompetitionInfo;
+import com.easycode.spocom.java.dao.vo.Competition;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
@@ -65,8 +64,8 @@ public class ModifierCompetitionController implements Initializable {
     @FXML
     private Label lblEdition, lblTypeCom, lblDate, lblLieu;
     
-    private List<CompetitionInfo> availableCompetition;
-    private CompetitionInfo selectedCompetition;
+    private List<Competition> availableCompetition;
+    private Competition selectedCompetition;
     
     /* End Select part */
     
@@ -202,10 +201,10 @@ public class ModifierCompetitionController implements Initializable {
         }
 
         comboSelectCom.setOnAction(e -> {
-            availableCompetition.forEach((CompetitionInfo item) -> {
+            availableCompetition.forEach((Competition item) -> {
                 if (comboSelectCom.getSelectionModel().getSelectedItem().equalsIgnoreCase(item.getType())) {
                     lblTypeCom.setText(item.getType());
-                    lblEdition.setText(item.getEdition());
+                    lblEdition.setText("" + item.getEdition());
                     lblLieu.setText(item.getLieu());
                     lblDate.setText(item.getDate().toString());
 
@@ -388,7 +387,7 @@ public class ModifierCompetitionController implements Initializable {
         selectedAhtlete.setSexe(sexeCol.getCellData(indexAthleteSelected).equalsIgnoreCase("Homme"));
         selectedAhtlete.setClub(clubCol.getCellData(indexAthleteSelected));
         selectedAhtlete.setCodeWilaya(Integer.parseInt(codeWilayaCol.getCellData(indexAthleteSelected)));
-        selectedAhtlete.setObservation(observationCol.getCellData(indexAthleteSelected).equalsIgnoreCase("Ind"));
+        selectedAhtlete.setObs(observationCol.getCellData(indexAthleteSelected).equalsIgnoreCase("Ind"));
 
         athleteFormPane = null;
         try {
