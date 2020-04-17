@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.houarizegai.spocom.controllers.AccederCompetitionController">
+   <children>
+      <StackPane fx:id="root" prefHeight="650.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox fx:id="selectPane" alignment="TOP_CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0" spacing="30.0">
+               <children>
+                  <Label styleClass="title" text="Selectionner Competition" />
+                  <VBox fillWidth="false" prefHeight="101.0" prefWidth="303.0" spacing="25.0">
+                     <children>
+                        <JFXComboBox fx:id="comboSelectCom" labelFloat="true" prefWidth="300.0" promptText="Selectionner Competition" styleClass="field" />
+                        <JFXButton onAction="#btnSuivant" prefHeight="45.0" prefWidth="302.0" text="Suivant" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="130.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <GridPane hgap="10.0" prefHeight="160.0" prefWidth="422.0">
+                     <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="235.0" minWidth="10.0" prefWidth="234.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="206.0" minWidth="10.0" prefWidth="188.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="197.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="111.0" minHeight="0.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="210.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="182.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label text="Type de competition :">
+                           <styleClass>
+                              <String fx:value="lbl-acceder" />
+                              <String fx:value="lbl-acceder-title" />
+                           </styleClass>
+                        </Label>
+                        <Label fx:id="lblEdition" styleClass="lbl-acceder" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="lblTypeCom" styleClass="lbl-acceder" GridPane.columnIndex="1" />
+                        <Label text="Edition :" GridPane.rowIndex="1">
+                           <styleClass>
+                              <String fx:value="lbl-acceder" />
+                              <String fx:value="lbl-acceder-title" />
+                           </styleClass>
+                        </Label>
+                        <Label text="Date :" GridPane.rowIndex="2">
+                           <styleClass>
+                              <String fx:value="lbl-acceder" />
+                              <String fx:value="lbl-acceder-title" />
+                           </styleClass>
+                        </Label>
+                        <Label fx:id="lblDate" styleClass="lbl-acceder" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Lieu :" GridPane.rowIndex="3">
+                           <styleClass>
+                              <String fx:value="lbl-acceder" />
+                              <String fx:value="lbl-acceder-title" />
+                           </styleClass>
+                        </Label>
+                        <Label fx:id="lblLieu" styleClass="lbl-acceder" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                     </children>
+                  </GridPane>
+               </children>
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
+            </VBox>
+            <VBox fx:id="saveComPane" prefHeight="200.0" prefWidth="100.0" spacing="15.0" visible="false">
+               <children>
+                  <HBox alignment="TOP_CENTER">
+                     <children>
+                        <Label styleClass="title" text="Classement Competition" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" spacing="20.0">
+                     <children>
+                        <JFXComboBox fx:id="comboSelectCategory" labelFloat="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="37.0" prefWidth="195.0" promptText="Selectionner Categorie" styleClass="field" />
+                        <JFXToggleButton fx:id="toggleSexe" prefHeight="40.0" prefWidth="133.0" selected="true" styleClass="field" text="Homme" toggleColor="#2196f3" toggleLineColor="#4dabf5" unToggleColor="#cc3366" unToggleLineColor="#cc3399" />
+                     </children>
+                  </HBox>
+                  <HBox fx:id="boxDos" alignment="CENTER" prefHeight="69.0" prefWidth="870.0" spacing="15.0" visible="false">
+                     <children>
+                        <JFXTextField fx:id="dosScoreField" focusColor="#2196f3" prefHeight="86.0" prefWidth="151.0" promptText="N°Dos" styleClass="dosField" />
+                        <EmojiOneView glyphName="ARROW_RIGHT" onMouseClicked="#addScore" size="65" styleClass="icon-ok" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <JFXTreeTableView fx:id="tableClassement" prefHeight="346.0" prefWidth="835.0" />
+                     </children>
+                  </HBox>
+               </children>
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </VBox>
+         </children>
+         <padding>
+            <Insets top="20.0" />
+         </padding>
+      </StackPane>
+      <Label layoutX="10.0" layoutY="10.0" onMouseClicked="#btnBackToHome" styleClass="label-back" text="Accueil" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="25.0" />
+   </children>
+   <stylesheets>
+      <URL value="@../css/main.css" />
+      <URL value="@../css/accedercompetition.css" />
+   </stylesheets>
+</AnchorPane>

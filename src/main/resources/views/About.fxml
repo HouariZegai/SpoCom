@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.icons525.Icons525View?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="435.0" prefWidth="572.0" stylesheets="@../css/about.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.houarizegai.spocom.controllers.AboutController">
+   <children>
+      <VBox fillWidth="false" layoutX="39.0" layoutY="65.0" prefHeight="303.0" prefWidth="491.0">
+         <children>
+            <Label prefHeight="50.0" styleClass="label-info" text="Easy Code Team">
+               <graphic>
+                  <FontAwesomeIconView glyphName="USER" size="32" styleClass="font-about" />
+               </graphic>
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </Label>
+            <Label prefHeight="50.0" styleClass="label-info" text="HouariZegai14@gmail.com">
+               <graphic>
+                  <Icons525View glyphName="GMAIL" size="28" styleClass="font-about" />
+               </graphic>
+            </Label>
+            <Label prefHeight="50.0" styleClass="label-info" text="0797603258 / 0655269823">
+               <graphic>
+                  <FontAwesomeIconView glyphName="PHONE" size="28" styleClass="font-about" />
+               </graphic>
+            </Label>
+            <Label prefHeight="50.0" styleClass="label-info" text="Java &amp; JavaFX Developer">
+               <graphic>
+                  <FontAwesomeIconView glyphName="BRIEFCASE" size="26" styleClass="font-about" />
+               </graphic>
+            </Label>
+            <HBox alignment="BOTTOM_CENTER" prefHeight="63.0" prefWidth="514.0" spacing="10.0">
+               <children>
+                  <FontAwesomeIconView glyphName="GITHUB_SQUARE" onMouseClicked="#goGithub" size="38">
+                     <styleClass>
+                        <String fx:value="font-social-media" />
+                        <String fx:value="icon-github" />
+                     </styleClass></FontAwesomeIconView>
+                  <FontAwesomeIconView glyphName="FACEBOOK_SQUARE" onMouseClicked="#goFacebook" size="38">
+                     <styleClass>
+                        <String fx:value="font-social-media" />
+                        <String fx:value="icon-fb" />
+                     </styleClass></FontAwesomeIconView>
+                  <FontAwesomeIconView glyphName="YOUTUBE_SQUARE" onMouseClicked="#goYoutube" size="38">
+                     <styleClass>
+                        <String fx:value="font-social-media" />
+                        <String fx:value="icon-yt" />
+                     </styleClass></FontAwesomeIconView>
+                  <FontAwesomeIconView glyphName="LINKEDIN_SQUARE" onMouseClicked="#goLinkedIn" size="38">
+                     <styleClass>
+                        <String fx:value="font-social-media" />
+                        <String fx:value="icon-in" />
+                     </styleClass></FontAwesomeIconView>
+                  <FontAwesomeIconView glyphName="TWITTER_SQUARE" onMouseClicked="#goTwitter" size="38">
+                     <styleClass>
+                        <String fx:value="font-social-media" />
+                        <String fx:value="icon-tw" />
+                     </styleClass></FontAwesomeIconView>
+                  <FontAwesomeIconView glyphName="GOOGLE_PLUS_SQUARE" onMouseClicked="#goGooglePlus" size="38">
+                     <styleClass>
+                        <String fx:value="font-social-media" />
+                        <String fx:value="icon-google" />
+                     </styleClass></FontAwesomeIconView>
+                  <FontAwesomeIconView glyphName="INSTAGRAM" onMouseClicked="#goInstagram" size="38">
+                     <styleClass>
+                        <String fx:value="font-social-media" />
+                        <String fx:value="icon-insta" />
+                     </styleClass></FontAwesomeIconView>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <HBox alignment="BOTTOM_CENTER" layoutX="30.0" layoutY="368.0" prefHeight="42.0" prefWidth="514.0" spacing="5.0">
+         <children>
+            <Label styleClass="label-bottom" text="Developed with Java and" />
+            <EmojiOneView fill="#da0000" glyphName="HEART" size="28" />
+            <Label styleClass="label-bottom" text="by Easy Code Team" />
+         </children>
+      </HBox>
+      <Label layoutX="233.0" layoutY="7.0" prefHeight="53.0" prefWidth="108.0" styleClass="header-title" text="About" />
+      <EmojiOneView glyphName="X" layoutX="542.0" layoutY="31.0" onMouseClicked="#btnClose" size="20" styleClass="icon-close" wrappingWidth="14.0" />
+   </children>
+</AnchorPane>

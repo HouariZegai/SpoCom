@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="root" fillWidth="false" prefHeight="621.0" prefWidth="439.0" spacing="25.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.houarizegai.spocom.controllers.form.AthleteFormController">
+   <children>
+      <Pane prefHeight="73.0" prefWidth="396.0">
+         <children>
+            <Label fx:id="titleField" alignment="CENTER" layoutX="85.0" layoutY="13.0" styleClass="title2" text="Ajouter Athlète" />
+            <EmojiOneView glyphName="X" layoutX="368.0" layoutY="38.0" onMouseClicked="#btnClose" size="20" styleClass="icon-close" wrappingWidth="14.0" />
+         </children>
+      </Pane>
+      <HBox prefHeight="418.0" prefWidth="384.0">
+         <children>
+            <VBox alignment="TOP_RIGHT" fillWidth="false" prefHeight="339.0" prefWidth="143.0" spacing="24.0">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="131.0">
+                     <children>
+                        <Label styleClass="lbl" text="Nom :" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="141.0">
+                     <children>
+                        <Label styleClass="lbl" text="Prenom :" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="141.0">
+                     <children>
+                        <Label styleClass="lbl" text="Date Naissance :" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="141.0">
+                     <children>
+                        <Label styleClass="lbl" text="Sexe :" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="141.0">
+                     <children>
+                        <Label styleClass="lbl" text="Club :" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="141.0">
+                     <children>
+                        <Label styleClass="lbl" text="Code Wilaya :" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="141.0">
+                     <children>
+                        <Label styleClass="lbl" text="Observation :" />
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </VBox>
+            <VBox fillWidth="false" prefHeight="355.0" prefWidth="245.0" spacing="20.0">
+               <children>
+                  <JFXTextField fx:id="nomField" prefHeight="23.0" prefWidth="230.0" styleClass="field" />
+                  <JFXTextField fx:id="prenomField" prefHeight="23.0" prefWidth="230.0" styleClass="field" />
+                  <JFXDatePicker fx:id="dateNaissPicker" defaultColor="#2196f3" prefHeight="37.0" prefWidth="240.0" styleClass="field">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </JFXDatePicker>
+                  <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="62.0" prefWidth="243.0">
+                     <children>
+                        <JFXRadioButton fx:id="rHomme" selected="true" styleClass="field" text="Homme" />
+                        <JFXRadioButton fx:id="rFemme" styleClass="field" text="Femme" />
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <JFXTextField fx:id="clubField" labelFloat="true" prefHeight="23.0" prefWidth="230.0" styleClass="field">
+                     <VBox.margin>
+                        <Insets top="-15.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <JFXComboBox fx:id="comboCodeWilaya" prefHeight="37.0" prefWidth="120.0" styleClass="field" />
+                  <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="63.0" prefWidth="243.0">
+                     <children>
+                        <JFXRadioButton fx:id="rInd" selected="true" styleClass="field" text="Individual">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </JFXRadioButton>
+                        <JFXRadioButton fx:id="rEq" styleClass="field" text="Equipe">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </JFXRadioButton>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+         <VBox.margin>
+            <Insets top="-20.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="54.0" prefWidth="369.0" spacing="30.0">
+         <children>
+            <JFXButton fx:id="btnValid" prefHeight="45.0" prefWidth="170.0" text="Ajouter" />
+            <JFXButton onAction="#btnClear" prefHeight="45.0" prefWidth="170.0" text="Vider" />
+         </children>
+         <VBox.margin>
+            <Insets top="-20.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+   <padding>
+      <Insets left="33.0" />
+   </padding>
+   <stylesheets>
+      <URL value="@../../css/main.css" />
+      <URL value="@../../css/form/athleteForm.css" />
+   </stylesheets>
+</VBox>

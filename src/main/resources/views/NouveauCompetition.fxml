@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+
+<StackPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.houarizegai.spocom.controllers.NouveauCompetitionController">
+   <children>
+      <VBox alignment="TOP_CENTER" prefHeight="690.0" prefWidth="1000.0">
+         <children>
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <Label prefHeight="64.0" prefWidth="303.0" styleClass="title2" text="Nouveau Competition" />
+                  <HBox alignment="CENTER_RIGHT" prefHeight="87.0" prefWidth="345.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label onMouseClicked="#btnBackToHome" styleClass="label-back" text="Accueil" />
+                     </children>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </HBox>
+            <VBox alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Line fx:id="line1" endX="160.0" onMouseClicked="#goToInfosCom" smooth="false" stroke="#2378b9" strokeWidth="8.0" styleClass="line" />
+                        <Circle fx:id="cir1" fill="WHITE" radius="11.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" />
+                        <Line fx:id="line2" endX="160.0" fill="#2378b9" onMouseClicked="#goToInfoCategorie" smooth="false" stroke="WHITE" strokeWidth="8.0" styleClass="line" />
+                        <Circle fx:id="cir2" fill="WHITE" radius="11.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" />
+                        <Line fx:id="line3" endX="160.0" fill="#2378b9" onMouseClicked="#goToAthlete" smooth="false" stroke="WHITE" strokeWidth="8.0" styleClass="line" />
+                        <Circle fx:id="cir3" fill="WHITE" radius="11.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" />
+                     </children>
+                  </HBox>
+                  <Label fx:id="titleStep" prefHeight="64.0" prefWidth="280.0" styleClass="title" text="Information Competition" textAlignment="CENTER" />
+               </children>
+            </VBox>
+            <StackPane prefHeight="518.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox fx:id="infoComPane" alignment="TOP_CENTER" fillWidth="false" prefHeight="429.0" prefWidth="747.0" spacing="30.0">
+                     <children>
+                        <JFXTextField fx:id="editionComField" focusColor="#2196f3" labelFloat="true" prefHeight="37.0" prefWidth="280.0" promptText="Edition" styleClass="field" />
+                        <JFXTextField fx:id="typeComField" focusColor="#2196f3" labelFloat="true" prefHeight="37.0" prefWidth="280.0" promptText="Type de competition" styleClass="field" />
+                        <JFXDatePicker fx:id="dateComPicker" defaultColor="#2196f3" prefHeight="37.0" prefWidth="280.0" promptText="Date" styleClass="field" />
+                        <JFXTextField fx:id="lieuComField" focusColor="#2196f3" labelFloat="true" prefHeight="37.0" prefWidth="280.0" promptText="Lieu" styleClass="field" />
+                        <HBox alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="270.0" spacing="15.0">
+                           <children>
+                              <JFXButton onAction="#goToInfoCategorie" prefHeight="44.0" prefWidth="272.0" styleClass="btn" text="Suivant" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <StackPane.margin>
+                        <Insets top="30.0" />
+                     </StackPane.margin>
+                  </VBox>
+                  <VBox fx:id="infoCategoryPane" alignment="TOP_CENTER" fillWidth="false" prefHeight="429.0" prefWidth="747.0" spacing="25.0" visible="false">
+                     <children>
+                        <HBox prefHeight="294.0" prefWidth="390.0" spacing="20.0">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="120.0" spacing="20.0">
+                                 <children>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="415.0" spacing="15.0">
+                                       <children>
+                                          <Label styleClass="label-field" text="Bengemine :" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="415.0" spacing="15.0">
+                                       <children>
+                                          <Label styleClass="label-field" text="Minime :" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="415.0" spacing="15.0">
+                                       <children>
+                                          <Label styleClass="label-field" text="Cadet :" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="415.0" spacing="15.0">
+                                       <children>
+                                          <Label styleClass="label-field" text="Junior :" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="415.0" spacing="15.0">
+                                       <children>
+                                          <Label styleClass="label-field" text="Senior :" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="262.0" prefWidth="270.0" spacing="20.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="415.0" spacing="20.0">
+                                       <children>
+                                          <JFXComboBox fx:id="year1Bengemine" focusColor="#2196f3" labelFloat="true" prefHeight="35.0" prefWidth="120.0" promptText="1er Date" styleClass="combo" />
+                                          <JFXComboBox fx:id="year2Bengemine" focusColor="#2196f3" labelFloat="true" prefHeight="35.0" prefWidth="120.0" promptText="2ème Date" styleClass="combo" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="415.0" spacing="20.0">
+                                       <children>
+                                          <JFXComboBox fx:id="year1Minime" focusColor="#2196f3" labelFloat="true" prefHeight="35.0" prefWidth="120.0" promptText="1er Date" styleClass="combo" />
+                                          <JFXComboBox fx:id="year2Minime" focusColor="#2196f3" labelFloat="true" prefHeight="35.0" prefWidth="120.0" promptText="2ème Date" styleClass="combo" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="415.0" spacing="20.0">
+                                       <children>
+                                          <JFXComboBox fx:id="year1Cadet" focusColor="#2196f3" labelFloat="true" prefHeight="35.0" prefWidth="120.0" promptText="1er Date" styleClass="combo" />
+                                          <JFXComboBox fx:id="year2Cadet" focusColor="#2196f3" labelFloat="true" prefHeight="35.0" prefWidth="120.0" promptText="2ème Date" styleClass="combo" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="415.0" spacing="20.0">
+                                       <children>
+                                          <JFXComboBox fx:id="year1Junior" focusColor="#2196f3" labelFloat="true" prefHeight="35.0" prefWidth="120.0" promptText="1er Date" styleClass="combo" />
+                                          <JFXComboBox fx:id="year2Junior" focusColor="#2196f3" labelFloat="true" prefHeight="35.0" prefWidth="120.0" promptText="2ème Date" styleClass="combo" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="415.0" spacing="20.0">
+                                       <children>
+                                          <JFXComboBox fx:id="year1Senior" focusColor="#2196f3" labelFloat="true" prefHeight="35.0" prefWidth="120.0" promptText="1er Date" styleClass="combo" />
+                                          <JFXComboBox fx:id="year2Senior" focusColor="#2196f3" labelFloat="true" prefHeight="35.0" prefWidth="120.0" promptText="2ème Date" styleClass="combo" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="60.0" prefWidth="390.0" spacing="15.0">
+                           <children>
+                              <JFXButton onAction="#goToInfosCom" prefHeight="43.0" prefWidth="190.0" styleClass="btn" text="Retour" />
+                              <JFXButton onAction="#goToAthlete" prefHeight="43.0" prefWidth="190.0" styleClass="btn" text="Suivant" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <StackPane.margin>
+                        <Insets top="30.0" />
+                     </StackPane.margin>
+                  </VBox>
+                  <VBox fx:id="infoAthletePane" alignment="TOP_CENTER" fillWidth="false" prefHeight="540.0" prefWidth="1000.0" spacing="10.0" visible="false">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="70.0" prefWidth="998.0" spacing="15.0">
+                           <children>
+                              <JFXTextField fx:id="searchAthleteField" labelFloat="true" prefHeight="39.0" prefWidth="133.0" promptText="Search" styleClass="field" />
+                              <JFXComboBox id="combo" fx:id="comboSearchAthlete" labelFloat="true" prefHeight="39.0" prefWidth="184.0" promptText="Search By" styleClass="field" />
+                              <JFXButton buttonType="RAISED" onAction="#btnAddAthlete" prefHeight="39.0" prefWidth="110.0" ripplerFill="#4264eb" styleClass="btn-athlete" text="Ajouter" />
+                              <JFXButton buttonType="RAISED" onAction="#btnEditAthlete" prefHeight="39.0" prefWidth="110.0" ripplerFill="#4264eb" styleClass="btn-athlete" text="Modifier" />
+                              <JFXButton buttonType="RAISED" onAction="#btnRemoveAthlete" prefHeight="39.0" prefWidth="110.0" ripplerFill="#4264eb" styleClass="btn-athlete" text="Supprimer" />
+                              <JFXButton buttonType="RAISED" onAction="#btnDeleteAllAthlete" prefHeight="39.0" prefWidth="116.0" ripplerFill="#4264eb" styleClass="btn-athlete" text="Supp Tout" />
+                           </children>
+                        </HBox>
+                        <JFXTreeTableView fx:id="tableAthlete" prefHeight="388.0" prefWidth="845.0" />
+                        <HBox alignment="CENTER" prefHeight="53.0" prefWidth="749.0" spacing="15.0">
+                           <children>
+                              <JFXButton buttonType="RAISED" onAction="#goToInfoCategorie" prefHeight="39.0" prefWidth="127.0" styleClass="btn-athlete" text="Retour">
+                                  <tooltip>
+                                    <Tooltip text="Retour â catégorie" />
+                                 </tooltip>
+                              </JFXButton>
+                              <JFXButton buttonType="RAISED" onAction="#goToFinish" prefHeight="39.0" prefWidth="127.0" styleClass="btn-athlete" text="Suivant" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="finishPane" alignment="CENTER" prefHeight="540.0" prefWidth="1000.0" spacing="10.0" visible="false">
+                     <children>
+                        <JFXButton onAction="#btnFinish" prefHeight="45.0" prefWidth="250.0" text="Terminer" />
+                        <JFXButton onAction="#goToAthlete" prefHeight="45.0" prefWidth="250.0" text="Retour" />
+                     </children>
+                  </VBox>
+               </children>
+            </StackPane>
+         </children>
+         <stylesheets>
+            <URL value="@../css/main.css" />
+            <URL value="@../css/nouveaucompetition.css" />
+         </stylesheets>
+      </VBox>
+   </children>
+</StackPane>
