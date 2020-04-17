@@ -14,8 +14,8 @@ public class App extends Application {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("/views/Accueil.fxml"));
-        } catch (IOException ex) {
-            System.out.println("Error msg: " + ex.getMessage());
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
         }
         Scene scene = new Scene(root);
         

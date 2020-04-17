@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class TableAthlete extends RecursiveTreeObject<TableAthlete>{
+        StringProperty nDos;
         StringProperty nom;
         StringProperty prenom;
         StringProperty dateNaiss;
@@ -19,17 +20,22 @@ public class TableAthlete extends RecursiveTreeObject<TableAthlete>{
 
         }
 
-        public TableAthlete(String nom, String prenom, String dataNaiss, boolean sexe, String club,
-                String codeWilaya, boolean observation) {
+        public TableAthlete(int nDos, String nom, String prenom, Date dateNaiss, boolean sexe, String club,
+                int codeWilaya, boolean observation) {
+            this.nDos = new SimpleStringProperty(String.valueOf(nDos));
             this.nom = new SimpleStringProperty(nom);
             this.prenom = new SimpleStringProperty(prenom);
-            this.dateNaiss = new SimpleStringProperty(dataNaiss);
+            this.dateNaiss = new SimpleStringProperty(dateNaiss.toString());
             this.sexe = new SimpleStringProperty((sexe) ? "Homme" : "Femme");
             this.club = new SimpleStringProperty(club);
-            this.codeWilaya = new SimpleStringProperty(codeWilaya);
+            this.codeWilaya = new SimpleStringProperty(String.valueOf(codeWilaya));
             this.observation = new SimpleStringProperty((observation) ? "Ind" : "Eq");
         }
 
+        public int getNDos() {
+            return Integer.parseInt(nDos.getValue());
+        }
+        
         public void setNom(String nom) {
             this.nom = new SimpleStringProperty(nom);
         }

@@ -14,7 +14,7 @@
    <children>
       <VBox fillWidth="false" layoutX="39.0" layoutY="65.0" prefHeight="303.0" prefWidth="491.0">
          <children>
-            <Label prefHeight="50.0" styleClass="label-info" text="Easy Code Team">
+            <Label prefHeight="50.0" styleClass="label-info" text="Houari ZEGAI">
                <graphic>
                   <FontAwesomeIconView glyphName="USER" size="32" styleClass="font-about" />
                </graphic>
@@ -82,7 +82,7 @@
          <children>
             <Label styleClass="label-bottom" text="Developed with Java and" />
             <EmojiOneView fill="#da0000" glyphName="HEART" size="28" />
-            <Label styleClass="label-bottom" text="by Easy Code Team" />
+            <Label styleClass="label-bottom" text="by Houari ZEGAI" />
          </children>
       </HBox>
       <Label layoutX="233.0" layoutY="7.0" prefHeight="53.0" prefWidth="108.0" styleClass="header-title" text="About" />

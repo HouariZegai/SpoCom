@@ -52,6 +52,12 @@ public class AthleteFormController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         initializeComboAndRadio();
 
+        root.setOnKeyReleased(e -> {
+            if(e.getCode().equals(KeyCode.ENTER)) {
+                addAthlete();
+            }
+        });
+        
         if (fromTypeIsAdd) {
             titleField.setText("Ajouter Athlète");
             btnValid.setText("Ajouter");
@@ -64,14 +70,14 @@ public class AthleteFormController implements Initializable {
                 prenomField.setText(NouveauCompetitionController.selectedAhtlete.getPrenom());
                 dateNaissPicker.setValue(NouveauCompetitionController.selectedAhtlete.getDateNaiss().toLocalDate());
 
-                if (NouveauCompetitionController.selectedAhtlete.isHomme()) {
+                if (NouveauCompetitionController.selectedAhtlete.getSexe()) {
                     rHomme.setSelected(true);
                 } else {
                     rFemme.setSelected(true);
                 }
                 clubField.setText(NouveauCompetitionController.selectedAhtlete.getClub());
                 comboCodeWilaya.getSelectionModel().select("" + NouveauCompetitionController.selectedAhtlete.getCodeWilaya());
-                if (NouveauCompetitionController.selectedAhtlete.isInd()) {
+                if (NouveauCompetitionController.selectedAhtlete.getObs()) {
                     rInd.setSelected(true);
                 } else {
                     rEq.setSelected(true);
@@ -81,14 +87,14 @@ public class AthleteFormController implements Initializable {
                 prenomField.setText(ModifierCompetitionController.selectedAhtlete.getPrenom());
                 dateNaissPicker.setValue(ModifierCompetitionController.selectedAhtlete.getDateNaiss().toLocalDate());
 
-                if (ModifierCompetitionController.selectedAhtlete.isHomme()) {
+                if (ModifierCompetitionController.selectedAhtlete.getSexe()) {
                     rHomme.setSelected(true);
                 } else {
                     rFemme.setSelected(true);
                 }
                 clubField.setText(ModifierCompetitionController.selectedAhtlete.getClub());
                 comboCodeWilaya.getSelectionModel().select("" + ModifierCompetitionController.selectedAhtlete.getCodeWilaya());
-                if (ModifierCompetitionController.selectedAhtlete.isInd()) {
+                if (ModifierCompetitionController.selectedAhtlete.getObs()) {
                     rInd.setSelected(true);
                 } else {
                     rEq.setSelected(true);
@@ -148,6 +154,7 @@ public class AthleteFormController implements Initializable {
     }
 
     /* Start Add Account Action Part */
+    
     @FXML
     private void btnClear() {
         nomField.setText("");

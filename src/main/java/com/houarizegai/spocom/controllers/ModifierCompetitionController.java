@@ -3,6 +3,7 @@ package com.houarizegai.spocom.controllers;
 import com.houarizegai.spocom.controllers.form.AthleteFormController;
 import com.houarizegai.spocom.dao.db.CompetitionDao;
 import com.houarizegai.spocom.dao.vo.Athlete;
+import com.houarizegai.spocom.dao.vo.Competition;
 import com.houarizegai.spocom.dao.vo.CompetitionInfo;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -64,8 +65,8 @@ public class ModifierCompetitionController implements Initializable {
     @FXML
     private Label lblEdition, lblTypeCom, lblDate, lblLieu;
     
-    private List<CompetitionInfo> availableCompetition;
-    private CompetitionInfo selectedCompetition;
+    private List<Competition> availableCompetition;
+    private Competition selectedCompetition;
     
     /* End Select part */
     
@@ -201,10 +202,10 @@ public class ModifierCompetitionController implements Initializable {
         }
 
         comboSelectCom.setOnAction(e -> {
-            availableCompetition.forEach((CompetitionInfo item) -> {
+            availableCompetition.forEach((Competition item) -> {
                 if (comboSelectCom.getSelectionModel().getSelectedItem().equalsIgnoreCase(item.getType())) {
                     lblTypeCom.setText(item.getType());
-                    lblEdition.setText(item.getEdition());
+                    lblEdition.setText("" + item.getEdition());
                     lblLieu.setText(item.getLieu());
                     lblDate.setText(item.getDate().toString());
 
@@ -387,7 +388,7 @@ public class ModifierCompetitionController implements Initializable {
         selectedAhtlete.setSexe(sexeCol.getCellData(indexAthleteSelected).equalsIgnoreCase("Homme"));
         selectedAhtlete.setClub(clubCol.getCellData(indexAthleteSelected));
         selectedAhtlete.setCodeWilaya(Integer.parseInt(codeWilayaCol.getCellData(indexAthleteSelected)));
-        selectedAhtlete.setObservation(observationCol.getCellData(indexAthleteSelected).equalsIgnoreCase("Ind"));
+        selectedAhtlete.setObs(observationCol.getCellData(indexAthleteSelected).equalsIgnoreCase("Ind"));
 
         athleteFormPane = null;
         try {

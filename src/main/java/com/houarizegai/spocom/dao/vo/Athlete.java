@@ -10,13 +10,13 @@ public class Athlete {
     private boolean sexe; // true => Homme, false => femme
     private String club;
     private int codeWilaya;
-    private boolean observation; // True -> Ind, False -> Equipe
-    
+    private boolean obs; // True -> Ind, False -> Equipe
+
     public Athlete() {
         
     }
     
-    public Athlete(int nDos, String nom, String prenom, Date dateNaiss, boolean sexe, String club, int codeWilaya, boolean observation) {
+    public Athlete(int nDos, String nom, String prenom, Date dateNaiss, boolean sexe, String club, int codeWilaya, boolean obs) {
         this.nDos = nDos;
         this.nom = nom;
         this.prenom = prenom;
@@ -24,7 +24,7 @@ public class Athlete {
         this.sexe = sexe;
         this.club = club;
         this.codeWilaya = codeWilaya;
-        this.observation = observation;
+        this.obs = obs;
     }
 
     public int getnDos() {
@@ -59,7 +59,7 @@ public class Athlete {
         this.dateNaiss = dateNaiss;
     }
 
-    public boolean isHomme() {
+    public boolean getSexe() {
         return sexe;
     }
 
@@ -83,18 +83,18 @@ public class Athlete {
         this.codeWilaya = codeWilaya;
     }
 
-    public boolean isInd() {
-        return observation;
+    public boolean getObs() {
+        return obs;
     }
 
-    public void setObservation(boolean observation) {
-        this.observation = observation;
+    public void setObs(boolean obs) {
+        this.obs = obs;
     }
     
     @Override
     public String toString() {
         return "Athlete: {" + nDos + ", " + nom + ", " + prenom + ", " + dateNaiss.toString() + ", " + ((sexe)? "H" : "F") + 
-                 ", " + club + ", " + codeWilaya + ", " + ((observation)? "Ind": "Eq") + " }";
+                 ", " + club + ", " + codeWilaya + ", " + ((obs)? "Ind": "Eq") + " }";
     }
     
 }

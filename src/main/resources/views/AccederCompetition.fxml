@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXToggleButton?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
 <?import java.lang.String?>
@@ -18,9 +17,13 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<<<<<<< HEAD:src/main/resources/views/AccederCompetition.fxml
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.houarizegai.spocom.controllers.AccederCompetitionController">
+=======
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.easycode.spocom.java.controllers.AccederCompetitionController">
+>>>>>>> e6a60bc9174d351edc23cdef2b684065895fe383:src/com/easycode/spocom/resources/views/AccederCompetition.fxml
    <children>
-      <StackPane fx:id="root" prefHeight="650.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <StackPane fx:id="root" prefHeight="650.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox fx:id="selectPane" alignment="TOP_CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0" spacing="30.0">
                <children>
@@ -81,28 +84,26 @@
                   <Insets />
                </StackPane.margin>
             </VBox>
-            <VBox fx:id="saveComPane" prefHeight="200.0" prefWidth="100.0" spacing="15.0" visible="false">
+            <VBox fx:id="saveComPane" spacing="15.0" visible="false">
                <children>
                   <HBox alignment="TOP_CENTER">
                      <children>
                         <Label styleClass="title" text="Classement Competition" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" spacing="20.0">
-                     <children>
-                        <JFXComboBox fx:id="comboSelectCategory" labelFloat="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="37.0" prefWidth="195.0" promptText="Selectionner Categorie" styleClass="field" />
-                        <JFXToggleButton fx:id="toggleSexe" prefHeight="40.0" prefWidth="133.0" selected="true" styleClass="field" text="Homme" toggleColor="#2196f3" toggleLineColor="#4dabf5" unToggleColor="#cc3366" unToggleLineColor="#cc3399" />
-                     </children>
-                  </HBox>
-                  <HBox fx:id="boxDos" alignment="CENTER" prefHeight="69.0" prefWidth="870.0" spacing="15.0" visible="false">
+                  <HBox fx:id="boxDos" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="69.0" prefWidth="870.0" spacing="15.0" VBox.vgrow="NEVER">
                      <children>
                         <JFXTextField fx:id="dosScoreField" focusColor="#2196f3" prefHeight="86.0" prefWidth="151.0" promptText="N°Dos" styleClass="dosField" />
                         <EmojiOneView glyphName="ARROW_RIGHT" onMouseClicked="#addScore" size="65" styleClass="icon-ok" />
+                        <JFXButton onAction="#onOtherCom" prefHeight="49.0" text="Autre Categorie -&gt;"/>
                      </children>
+                     <VBox.margin>
+                        <Insets right="20.0" />
+                     </VBox.margin>
                   </HBox>
                   <HBox alignment="CENTER">
                      <children>
-                        <JFXTreeTableView fx:id="tableClassement" prefHeight="346.0" prefWidth="835.0" />
+                        <JFXTreeTableView fx:id="tableClassement" prefHeight="450.0" prefWidth="915.0" />
                      </children>
                   </HBox>
                </children>
@@ -115,7 +116,7 @@
             </VBox>
          </children>
          <padding>
-            <Insets top="20.0" />
+            <Insets right="20.0" top="20.0" />
          </padding>
       </StackPane>
       <Label layoutX="10.0" layoutY="10.0" onMouseClicked="#btnBackToHome" styleClass="label-back" text="Accueil" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="25.0" />
